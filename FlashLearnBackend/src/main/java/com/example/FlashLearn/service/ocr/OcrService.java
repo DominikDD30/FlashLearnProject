@@ -29,7 +29,13 @@ public class OcrService {
         Tesseract tesseract = new Tesseract();
 
         try {
-            tesseract.setDatapath("C:/Program Files/Tesseract-OCR/tessdata");
+//            tesseract.setDatapath("src/main/resources/Tesseract-OCR/tessdata");
+
+            tesseract.setDatapath("/usr/share/tesseract/tessdata");
+
+
+
+//            tesseract.setDatapath("C:/Program Files/Tesseract-OCR/tessdata");
 
             String result = tesseract.doOCR(imageFile);
 
