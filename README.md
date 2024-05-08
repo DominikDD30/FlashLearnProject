@@ -42,7 +42,7 @@ application use external api providers.
   
 Complete apikeys in application.yml to use this generating features,
 
-Generating quizes won't work without Tesseract engine 
+Generating quizes won't work without Tesseract engine (included in dockerfile)
 - https://github.com/tesseract-ocr/tesseract
   
 
