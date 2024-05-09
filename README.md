@@ -4,10 +4,25 @@ part of an engineering project
 
 Flashcard is an application that allows users to create and learn flashcards and quizzes in an efficient way.
 
+
+## Visit Website  https://flashlearnproject.netlify.app/
+you can use predefined user to sign in
+
+login: testowy
+
+password: testowy
+
+#### ! i am using free tier so first request to backend might take a bit longer because application sleep when innactive
+
+
+
+
+
 ## Features
 
 - **Flashcard Creation:** Ability to create custom flashcards with images.
-- **Flashcard Learning:** Study mode allowing users to browse flashcards or play memory games based on user sets.
+- **Flashcard Learning:** Study mode allowing users to browse flashcards.
+- **Entertaiment**  Play memory games based on user sets. (set must contain at least 6 flashcards)
 - **Quizzes:** Ability to create and solve quizzes 
 - **Generating:** Ability to
   
