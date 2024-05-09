@@ -12,7 +12,7 @@ login: testowy
 
 password: testowy
 
-#### ! i am using free tier so first request to backend might take a bit longer because application sleep when innactive
+#### ! i am using free tier so first request to backend might take  longer because application sleep when innactive , generating quizzes from pdf work wery slowly so i recommend  to process very small files
 
 
 
@@ -30,7 +30,9 @@ password: testowy
   
   -> generating sounds for flashcards
   
-  -> generating complete Quizes from provided pdf file 
+  -> generating complete Quizes from provided pdf file
+  
+  currently support numerated questions and false,true answers or numerated questions and a,b,c,d answers
 
 ## Installation
 
