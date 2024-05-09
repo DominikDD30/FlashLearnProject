@@ -20,17 +20,19 @@ const QuizLearnComponent = ({quizSet}:Props) => {
    
 
    
-      const handleCheckAnswer=()=>{
-        if(checkAnswerBlocked)return;
-        setCheckAnswers(true);
-        const countCheckedCorrectly = tempAnswers.filter(answer => answer.checked && answer.answer.isCorrect).length;
-        const correctAnswers = tempAnswers.filter(answer =>answer.answer.isCorrect).length;
-        const newSum=countCheckedCorrectly==0?0:countCheckedCorrectly/correctAnswers*100;
-        setSum(sum+newSum);
-        setAccuracy(((sum+newSum)==0)?0:(sum+newSum)/sumElemCounter);
-        setSumElemCounter(sumElemCounter+1);
-        setCheckAnswerBlocked(true);
-      }
+    const handleCheckAnswer=()=>{
+      if(tempAnswers.filter(answer=>answer.checked).length==0)return;
+      if(checkAnswerBlocked)return;
+      setCheckAnswers(true);
+      const countCheckedCorrectly = tempAnswers.filter(answer =>
+         (answer.checked && answer.answer.isCorrect)||(!answer.checked && !answer.answer.isCorrect))
+         .length;
+      const newSum=countCheckedCorrectly==0?0:countCheckedCorrectly/tempAnswers.length*100;
+      setSum(sum+newSum);
+      setAccuracy(((sum+newSum)==0)?0:(sum+newSum)/sumElemCounter);
+      setSumElemCounter(sumElemCounter+1);
+      setCheckAnswerBlocked(true);
+    }
 
     const handleReset=()=>{
       setCheckAnswerBlocked(false);

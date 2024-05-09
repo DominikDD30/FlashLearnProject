@@ -23,7 +23,7 @@ const QuizItemBuilderComponent = ({quizItem}:Props) => {
       useEffect(()=>{
         console.log('quizItem',quizItem);
         if(quizItem.question){
-          setFloatingText(0);
+          setFloatingText(1);
         }
       },[])
 
@@ -35,9 +35,7 @@ const QuizItemBuilderComponent = ({quizItem}:Props) => {
     }
 
         const handleSaveChanges=()=>{
-            if(questionRef.current&&questionRef.current.value){
-              setFloatingText(0);
-            }else{
+            if(questionRef.current&&!questionRef.current.value){
               setFloatingText(-1);
             }
         }
@@ -69,16 +67,16 @@ const QuizItemBuilderComponent = ({quizItem}:Props) => {
 
 
   return (
-    <Stack id={`quiz${quizItem.id}`} mt={10} position='relative' justifyContent='space-between' p='3px 15px' 
-    borderRadius='5px' width='100%'  bg='white' color='black'>
-     <Stack spacing={0}  height='100%'>
+    <Stack id={`quiz${quizItem.id}`} mt={10} overflowY='hidden' position='relative' justifyContent='space-between' pt='0px' pb='5px' pl='15px' pr='15px' 
+    borderRadius='5px' width='100%'   bg='white' color='black'>
+     <Stack spacing={0}   height='100%'>
      <FloatingText toggle={floatingText}/>
-      <Textarea ref={questionRef} id={`quiz-input${quizItem.id}`} value={quizItem.question} variant='flushed' bg='white' size='lg'
+      <Textarea position='absolute' top='-15px' width='calc(100% - 30px)' ref={questionRef} id={`quiz-input${quizItem.id}`} value={quizItem.question} variant='flushed'  bg='white' size='lg'
        _focus={{boxShadow:'none',borderBottom:'2px solid black'}}  borderBottom='2px solid black' 
         _placeholder={{color:'black'}} onFocus={()=>setFloatingText(1)} 
-          pt='20px'  // Dostosowanie odstępu wewnętrznego do zera
+          pt='45px' 
          onChange={handleQuestionChange} onBlur={handleSaveChanges}/>
-     <HStack justifyContent='space-between'>
+     <HStack justifyContent='space-between' mt={'60px'}>
      {/* <Text color='gray.600' mt={5}  fontWeight='semibold' fontSize='lg'>Answears</Text>  */}
      <Text color='gray.600' mt={5}  fontWeight='semibold' fontSize='lg'>Mark good answers by click on id</Text> 
      </HStack>

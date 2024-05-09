@@ -103,6 +103,11 @@ const FlashcardLearn = () => {
     setRunSound(!runSound);
     event.stopPropagation(); 
   }
+
+  
+
+
+
   
   if(isRoundEnd){
   return <FlashcardsResult accuratePercent={accuratePercent} positive={positive} negative={negative} 
@@ -110,7 +115,7 @@ const FlashcardLearn = () => {
   }
 
   return (
-   <Flex flexDirection='column'  alignItems='center'  p={`30px ${isLargerThan1200?'50px':'0px'}`} minHeight='100vh'  width='100vw' bg='gray.100' color='gray.600'>
+   <Flex flexDirection='column'  alignItems='center'  p={`30px ${isLargerThan1200?'50px':'0px'}`} minHeight='100vh'  width='100%' bg='gray.100' color='gray.600'>
     <Icon position='absolute'  top='25px' left='25px' boxSize={5} as={CloseIcon} cursor='pointer' onClick={handleExit}/>
     <Text textAlign='center' fontSize={{base:'xl',xl:'2xl'}} fontWeight='500'>{`${activeFlashcardIndex+1}/${flashcards.length}`}</Text>
     <hr style={{width:'99vw',marginTop:'15px',border:'2px solid var(--chakra-colors-gray-300)'}}/>
