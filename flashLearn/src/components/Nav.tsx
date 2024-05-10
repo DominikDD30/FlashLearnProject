@@ -37,7 +37,7 @@ const Nav = () => {
     <>
     <ContentsMenu show={showContentsMenu} closeContents={()=>setShowContentsMenu(false)}/>
     <HStack height='70px' width='100%' bg='white' shadow='sm' p='0px 15px' >
-        <HamburgerIcon  cursor='pointer'  color='gray.600' boxSize={7} onClick={handleShowMenu} />
+    {userStore.email&&<HamburgerIcon  cursor='pointer'  color='gray.600' boxSize={7} onClick={handleShowMenu} />}
         <Link to='/'><Text fontSize={{base:'xl',lg:'3xl'}} ml={2} fontWeight='bold' color='gold'>
             FlashLearn
         <Icon as={FcFlashOn} boxSize={{base:6,lg:8}}/>

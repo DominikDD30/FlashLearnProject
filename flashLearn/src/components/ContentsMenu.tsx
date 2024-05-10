@@ -24,7 +24,7 @@ const ContentsMenu = ({closeContents,show}:Props) => {
         {name:'Main Page',icon:FcFlashOn,nav:'/'},
         {name:'Create new set',icon:IoIosCreate,color:'blue.400',nav:'/create'},
         {name:'Your flashcards',icon:TbCardsFilled,color:'purple',nav:'/flashcards'},
-        {name:'Your sets',icon:BsCollection,nav:'/quiz-list'}];
+        {name:'Your quizzes',icon:BsCollection,nav:'/quiz-list'}];
 
         const wrapper=(icon:IconType,text:string,color?:string,nav?:string)=>{
             return <Flex  height='60px' pl={3} alignItems='center' cursor='pointer' onClick={()=>{handleNavigate(nav);userStore.triggerRefetch()}}>

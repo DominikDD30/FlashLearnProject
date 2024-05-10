@@ -93,8 +93,8 @@ const SoloGame = () => {
     </Stack>}
      <Flex width='100vw' flexDirection='column' overflowY='hidden' height='100vh' bgImage={isLargerThan1000?bigWenus:smallWenus} bgPosition='center' bgSize='cover'  p='10px 0px 0px 0px'> 
     <HStack width='100%' justifyContent='space-around'>
-    <Text  textAlign='center' fontSize='2xl' >Collected Pairs {scored}</Text>
-    <Text  textAlign='center' fontSize='2xl' color='skyblue' >Moves {moves}</Text>
+    <Text  textAlign='center' fontSize='2xl' >collected pairs {scored}</Text>
+    <Text  textAlign='center' fontSize='2xl' color='skyblue' >miss moves {moves}</Text>
     </HStack>
     <SimpleGrid mt='20px' p={{base:'10px',lg:'50px'}} alignItems='center'  flexGrow={1}  
       spacing={isLargerThan1000?

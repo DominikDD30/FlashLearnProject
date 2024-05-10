@@ -78,7 +78,7 @@ const QuizItemBuilderComponent = ({quizItem}:Props) => {
          onChange={handleQuestionChange} onBlur={handleSaveChanges}/>
      <HStack justifyContent='space-between' mt={'60px'}>
      {/* <Text color='gray.600' mt={5}  fontWeight='semibold' fontSize='lg'>Answears</Text>  */}
-     <Text color='gray.600' mt={5}  fontWeight='semibold' fontSize='lg'>Mark good answers by click on id</Text> 
+     <Text color='gray.600' mt={10}  fontWeight='semibold' fontSize='lg'>Mark good answers by click on id</Text> 
      </HStack>
      <Stack flexGrow={1} spacing={3} pt='15px' pb='10px'>
       {quizItem.answers.map((answear,index)=><AnswearComponent index={index+1} answear={answear} updateAnswear={updateAnswear}/>)}
