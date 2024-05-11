@@ -1,11 +1,11 @@
 HELP.md
-#.gradle
-#build/
-#!gradle/wrapper/gradle-wrapper.jar
-#!**/src/main/**/build/
-#!**/src/test/**/build/
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-### STS ###
+## STS ###
 .apt_generated
 .classpath
 .factorypath
