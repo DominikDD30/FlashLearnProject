@@ -1,7 +1,7 @@
-insert into _user (user_id,email,password,active)
+insert into _user (email,password,active)
 values
-    ('1','testowy','$2a$12$x1cJPav.zu3RXNMhs7aVx.dYNGJ2AF6e1gmLpFabRI77gAA3I92fS','true'),
-    ('2','admin','$2a$12$7CPlzqTCK7llm2BkehPuQO4V8hHT7hFs6xbda4KbMaOjq1nypviNa','true');
+    ('testowy','$2a$12$x1cJPav.zu3RXNMhs7aVx.dYNGJ2AF6e1gmLpFabRI77gAA3I92fS','true'),
+    ('admin','$2a$12$7CPlzqTCK7llm2BkehPuQO4V8hHT7hFs6xbda4KbMaOjq1nypviNa','true');
 
 insert into flashcards_set (owner_id,name,last_time_used,share_code) values(1,'animals','2024-05-07','a051b424-591e-463c-ac43-eb5008745534');
 
