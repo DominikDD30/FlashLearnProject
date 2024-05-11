@@ -50,9 +50,10 @@ password: testowy
    
 ## Docker Installation
 
-1. open FlashLearn folder in cmd
-2. type 'docker compose up'
-3. go to http://localhost:5174
+1. open backend project and run gradle build
+2. open FlashLearn folder in cmd
+3. type 'docker compose up'
+4. go to http://localhost:5174
 
 ## API Keys
 application use external api providers. 
