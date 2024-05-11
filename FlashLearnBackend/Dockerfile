@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 # Install Java, Tesseract, and wget
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk tesseract-ocr wget
+    apt-get install -y  tesseract-ocr wget
 
 # Create the directory structure where the traineddata file will be placed
 RUN mkdir -p /usr/share/tesseract/tessdata
@@ -12,6 +12,7 @@ RUN mkdir -p /usr/share/tesseract/tessdata
 
 COPY eng.traineddata /usr/share/tesseract/tessdata/eng.traineddata
 
+FROM eclipse-temurin:17
 # Copy your application JAR file
 COPY build/libs/*.jar app.jar
 
