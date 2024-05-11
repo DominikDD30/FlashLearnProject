@@ -12,8 +12,12 @@ login: testowy
 
 password: testowy
 
-#### ! i am using free tier so first request to backend might take  longer because application sleep when innactive , generating quizzes from pdf work wery slowly so i recommend  to process very small files
+## IMPORTANT!
+. I am using free tier so first request to backend might take  longer because application sleep when innactive (approximately 2 minutes).
 
+. Generating quizzes from pdf work wery slowly so i recommend  to process very small files.
+
+. Multiplayer game via websockets stop working after deploy to web (most likely some firewall block connections) 
 
 
 
@@ -50,7 +54,7 @@ password: testowy
 2. type 'docker compose up'
 3. go to http://localhost:5174
 
-## Important
+## API Keys
 application use external api providers. 
 
   -pexel for generating images
@@ -59,7 +63,7 @@ application use external api providers.
   
 Complete apikeys in application.yml to use this generating features,
 
-Generating quizes won't work without Tesseract engine (included in dockerfile)
+Generating quizes won't work without Tesseract engine (already included in dockerfile)
 - https://github.com/tesseract-ocr/tesseract
   
 
