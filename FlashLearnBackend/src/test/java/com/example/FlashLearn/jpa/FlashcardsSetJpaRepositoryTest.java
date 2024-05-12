@@ -35,13 +35,14 @@ class FlashcardsSetJpaRepositoryTest {
     @Test
     void shouldSaveAndGetAllFlashcards() {
         //given
+        flashcardRepository.deleteAll();
         UserEntity someUser = someUser();
-        FlashcardsSetEntity setEntity = new FlashcardsSetEntity(1, "animals", LocalDate.now(), "asgsags", null, someUser);
+        FlashcardsSetEntity setEntity = new FlashcardsSetEntity(null, "animals", LocalDate.now(), "asgsags", null, someUser);
         flashcardsSetRepository.save(setEntity);
         flashcardRepository.saveAll(List.of(
-                someFlashcardEntity1().withFlashcardsSet(setEntity),
-                someFlashcardEntity2().withFlashcardsSet(setEntity),
-                someFlashcardEntity3().withFlashcardsSet(setEntity)));
+                someFlashcardEntity1().withFlashcardId(null).withFlashcardsSet(setEntity),
+                someFlashcardEntity2().withFlashcardId(null).withFlashcardsSet(setEntity),
+                someFlashcardEntity3().withFlashcardId(null).withFlashcardsSet(setEntity)));
         //when
         List<FlashcardEntity> result = flashcardRepository.findAll();
         //then

@@ -3,6 +3,8 @@ package com.example.FlashLearn.integration.configuration;
 import com.example.FlashLearn.FlashLearnApplication;
 import com.example.FlashLearn.infractructure.database.repository.*;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
@@ -39,6 +41,8 @@ public abstract class AbstractIT {
         quizRepository.deleteAll();
         answerRepository.deleteAll();
     }
+
+
 
 
 }

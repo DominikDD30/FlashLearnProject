@@ -38,13 +38,14 @@ public class QuizSetJpaRepositoryTest {
     @Test
     void shouldSaveAndGetAllQuiz() {
         //given
+        quizRepository.deleteAll();
         UserEntity someUser = someUser();
-        QuizSetEntity quizSetEntity = someQuizSetEntity1().withUser(someUser).withQuizItems(null);
+        QuizSetEntity quizSetEntity = someQuizSetEntity1().withQuizSetId(null).withUser(someUser).withQuizItems(null);
         quizSetRepository.save(quizSetEntity);
 
         quizRepository.saveAll(List.of(
-                EntityFixtures.someQuizEntity1().withQuizSet(quizSetEntity).withAnswers(null),
-                EntityFixtures.someQuizEntity2().withQuizSet(quizSetEntity).withAnswers(null)));
+                EntityFixtures.someQuizEntity1().withQuizId(null).withQuizSet(quizSetEntity).withAnswers(null),
+                EntityFixtures.someQuizEntity2().withQuizId(null).withQuizSet(quizSetEntity).withAnswers(null)));
 
         //when
         List<QuizEntity> result = quizRepository.findAll();

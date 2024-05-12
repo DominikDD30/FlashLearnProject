@@ -3,6 +3,7 @@ package com.example.FlashLearn.integration;
 import com.example.FlashLearn.dto.FlashcardsSetDTO;
 import com.example.FlashLearn.fixtures.EntityFixtures;
 import com.example.FlashLearn.fixtures.FixturesDTO;
+import com.example.FlashLearn.infractructure.database.entity.FlashcardEntity;
 import com.example.FlashLearn.infractructure.database.entity.FlashcardsSetEntity;
 import com.example.FlashLearn.infractructure.database.repository.FlashcardRepository;
 import com.example.FlashLearn.infractructure.database.repository.FlashcardsSetRepository;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -34,21 +36,12 @@ implements FlashcardControllerTestSupport {
    @Test
     void thatGetFlashcardsSetWorksCorrectly(){
        //given
+       flashcardsSetRepository.deleteAll();
        FlashcardsSetDTO flashcardsSetDTO = FixturesDTO.someFlashcardsSetDto1();
-       FlashcardsSetEntity flashcardsSet = FlashcardsSetEntity.builder()
-               .name(flashcardsSetDTO.getSetName())
-               .lastTimeUsed(LocalDate.now())
-               .shareCode(UUID.randomUUID().toString())
-               .owner(EntityFixtures.someUser())
-               .build();
-       flashcardsSetRepository.save(flashcardsSet);
-       flashcardRepository.saveAll(flashcardsSetDTO.getFlashcards().stream()
-               .map(flashcardDTO -> FlashcardMapper.mapToEntity(flashcardDTO).withFlashcardId(null))
-               .peek(flashcard -> flashcard.setFlashcardsSet(flashcardsSet))
-               .collect(Collectors.toSet()));
 
+       saveFlashcardSet(flashcardsSetDTO);
        //when
-       FlashcardsSetDTO result = getFlashcardsSet(1);
+       FlashcardsSetDTO result = getFlashcardsSet(2);
 
        //then
        Assertions.assertThat(result.getSetName()).isEqualTo(flashcardsSetDTO.getSetName());
