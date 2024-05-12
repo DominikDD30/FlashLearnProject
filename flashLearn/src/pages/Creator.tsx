@@ -52,7 +52,7 @@ const Creator = () => {
 
   function showToast() {
     toastIdRef.current = toast({
-      description: 'your set should contain at least 3 items',
+      description: 'your set should contain at least 3 items and has title',
       status: 'warning',
       duration: 2000,
       position:'bottom',

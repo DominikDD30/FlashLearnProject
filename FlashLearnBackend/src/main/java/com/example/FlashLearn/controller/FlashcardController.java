@@ -8,6 +8,7 @@ import com.example.FlashLearn.infractructure.database.entity.FlashcardsSetEntity
 import com.example.FlashLearn.infractructure.mapper.FlashcardMapper;
 import com.example.FlashLearn.infractructure.mapper.FlashcardSetMapper;
 import com.example.FlashLearn.service.FlashcardService;
+import lombok.AllArgsConstructor;
 import net.datafaker.Faker;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import static com.example.FlashLearn.controller.FlashcardController.FLASHCARDS;
 
 @RestController
 @CrossOrigin
+@AllArgsConstructor
 @RequestMapping(FLASHCARDS)
 public class FlashcardController {
 
@@ -31,9 +33,6 @@ public class FlashcardController {
     private final FlashcardService flashcardService;
     private final Faker faker =new Faker();
 
-    public FlashcardController(FlashcardService flashcardService) {
-        this.flashcardService = flashcardService;
-    }
 
     @PostMapping
     public void saveSet(@RequestBody FlashcardsSetDTO flashcards){
@@ -101,31 +100,9 @@ public class FlashcardController {
     }
 
 
-    @GetMapping("/generate")
-    public void generate(){
-        List<FlashcardDTO> flashcards=new ArrayList<>();
-        for (int i = 0; i <30; i++) {
-            flashcards.add(new FlashcardDTO(i+1,faker.animal().name(),faker.shakespeare().romeoAndJulietQuote(),null));
-        }
-        for (int i = 0; i <5; i++) {
-            flashcardService.saveSet(FlashcardsSetDTO.builder()
-                            .setName(faker.book().title())
-                            .flashcards(flashcards)
-                            .ownerId(1)
-                            .lastTimeUsed(LocalDate.of(2024,generateRandomNumber(1,3),generateRandomNumber(1,16)))
-                    .build());
-        }
-    }
 
 
-    public static int generateRandomNumber(int min, int max) {
-        if (min >= max) {
-            throw new IllegalArgumentException("Invalid range");
-        }
 
-        Random random = new Random();
-        return random.nextInt(max - min + 1) + min;
-    }
 
 
 }

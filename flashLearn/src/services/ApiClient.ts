@@ -93,16 +93,40 @@ export const axiosInstance= axios.create({
       .then(res=>res.data);
     }
 
-    ocrFile=(file:File)=>{
+    generateQuizzes=(file:File)=>{
       const token=localStorage.getItem('token');
       const formData = new FormData();
     formData.append('file', file);
-    return axiosInstance.post<QuizItemBuilder[]>(this.endpoint+'/ocr', formData, {
+    return axiosInstance.post<QuizItemBuilder[]>(this.endpoint+'/quiz', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
         }
       }).then(res=>res.data);
+    }
+
+    ocrFile=(file:File)=>{
+      const token=localStorage.getItem('token');
+      const formData = new FormData();
+    formData.append('file', file);
+    return axiosInstance.post<string>(this.endpoint+'/ocr', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(res=>res.data);
+    } 
+    
+    generateFlashcards=(text:string,conceptDefinitionSeparator:string,flashcardSeparator:string)=>{
+      const token=localStorage.getItem('token');
+      return axiosInstance.get<FlashcardBuilder[]>(this.endpoint+'/flashcard',{
+      params:{text:text,xSep:conceptDefinitionSeparator,ySep:flashcardSeparator},
+        headers: {
+          Authorization: `Bearer ${token}`, 
+          'Content-Type': 'application/json',
+        }}
+)
+      .then(res=>res.data);
     }
 
     deleteFlashcardsSet=(setId:number)=>{

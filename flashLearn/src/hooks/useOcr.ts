@@ -9,7 +9,7 @@ const apiClient=new ApiClient("/quiz");
 const useOcr = (file:File) => 
    useQuery({
     queryKey:['ocrQuizItems'],
-    queryFn:()=>apiClient.ocrFile(file),
+    queryFn:()=>apiClient.generateQuizzes(file),
     staleTime:1000*60*60,
   });
 

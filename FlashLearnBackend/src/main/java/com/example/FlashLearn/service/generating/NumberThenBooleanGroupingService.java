@@ -1,4 +1,4 @@
-package com.example.FlashLearn.service.ocr;
+package com.example.FlashLearn.service.generating;
 
 import com.example.FlashLearn.dto.AnswerDTO;
 import org.springframework.stereotype.Service;

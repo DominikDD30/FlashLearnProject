@@ -6,12 +6,11 @@ import { QuizItemBuilder } from "../../../entities/QuizItemBuilder";
 import useCreatorStore from "../../../creatorStore";
 
 interface Props{
-// newGenerated:(list:QuizItemBuilder[])=>void;
  startLoading:()=>void;
  stopLoading:()=>void;
 }
 
-const apiClient=new ApiClient("/quiz");
+const apiClient=new ApiClient("/generate");
 const PdfUpload = ({startLoading,stopLoading}:Props) => {
   const creatorStore=useCreatorStore();
     const [selectedPdf, setSelectedPdf] = useState<File>();
@@ -21,7 +20,7 @@ const handlePdfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     // setSelectedPdf(file);
     startLoading();
-    apiClient.ocrFile(file!)
+    apiClient.generateQuizzes(file!)
     // .then(res=>console.log(res))
     .then(res=>creatorStore.setQuizItems(res))
     .catch(err=>console.log(err))

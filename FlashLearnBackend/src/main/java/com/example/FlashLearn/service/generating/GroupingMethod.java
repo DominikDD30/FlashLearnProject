@@ -1,4 +1,4 @@
-package com.example.FlashLearn.service.ocr;
+package com.example.FlashLearn.service.generating;
 
 public enum GroupingMethod {
     DIGITS,

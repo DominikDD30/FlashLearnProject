@@ -1,21 +1,14 @@
 package com.example.FlashLearn.controller;
 
 import com.example.FlashLearn.dto.*;
-import com.example.FlashLearn.infractructure.database.entity.QuizSetEntity;
 import com.example.FlashLearn.infractructure.mapper.QuizMapper;
-import com.example.FlashLearn.service.ocr.OcrService;
+import com.example.FlashLearn.service.generating.OcrService;
 import com.example.FlashLearn.service.QuizService;
 import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import static com.example.FlashLearn.controller.QuizController.QUIZ;
 
@@ -63,18 +56,5 @@ public class QuizController {
         quizService.updateLastTimeUsed(setId);
     }
 
-    @PostMapping("/ocr")
-    public List<QuizDTO> ocrPdf(@RequestParam("file") MultipartFile file){
-        if (file.isEmpty()) {
-            return List.of();
-        }
-        try {
-            Map<String, List<AnswerDTO>> map = ocrService.ocrImageAndCreateQuizItems(file);
-            AtomicInteger counter= new AtomicInteger(1);
-           return map.entrySet().stream().map(entry->new QuizDTO(counter.getAndIncrement(),entry.getKey(),entry.getValue())).toList();
-        } catch (IOException e) {
-            return List.of();
-        }
 
-    }
 }
