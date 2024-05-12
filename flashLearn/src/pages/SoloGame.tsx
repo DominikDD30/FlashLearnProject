@@ -96,16 +96,14 @@ const SoloGame = () => {
     <Text  textAlign='center' fontSize='2xl' >collected pairs {scored}</Text>
     <Text  textAlign='center' fontSize='2xl' color='skyblue' >miss moves {moves}</Text>
     </HStack>
-    <SimpleGrid mt='20px' p={{base:'10px',lg:'50px'}} alignItems='center'  flexGrow={1}  
-      spacing={isLargerThan1000?
-        (deckSize==12? '70px' : deckSize==20? '50' : '35px')
-      :(deckSize==12? '25px' : deckSize==20? '15px' : '15px')}
+    <SimpleGrid p={{base:'10px 20px 20px 20px',lg:'10px 30px'}} alignItems='center' flexGrow={1}  
+      spacing={deckSize==12? '30px' : deckSize==20? '20px' : '17px'}
       columns={deckSize==12? 4 : deckSize==20? 5 : 6}>
             {cards?.map((card,index)=><FlipCardAnimationWrapper key={index} isBlocked={false}
            flip={(card.position==firstItemFlipedPosition)||(card.position==secondItemFlipedPosition)}> 
-                 <Center 
+                 <Center  
                   height={isLargerThan1000?
-                    (deckSize == 12 ? '170px' : deckSize == 20 ? '140' : '120px')
+                    (deckSize == 12 ? '160px' : deckSize == 20 ? '130px' : '120px')
                   :(deckSize == 12 ? '80px' : deckSize == 20 ? '60px' : '60px')}  
                   transition='1s'
                   opacity={card.visible ? 1 : 0}
