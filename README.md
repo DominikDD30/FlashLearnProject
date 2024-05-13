@@ -29,6 +29,8 @@ password: testowy
 - **Entertaiment**  Play memory games based on user sets. (set must contain at least 6 flashcards)
 - **Quizzes:** Ability to create and solve quizzes 
 - **Generating:** Ability to
+
+  -> generating flashcards from files or from plain text
   
   -> generating images for flashcards
   
