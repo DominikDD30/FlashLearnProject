@@ -80,12 +80,14 @@ const FlashcardsCreator = () => {
     </Center>
     <ImageZoomModal selectedPhoto={selectedPhoto} closeModal={() =>setSelectedPhoto(null)}/>
     <Stack mb={10}>
-    <Button width={{base:'auto',lg:'40%'}} height='40px' mt={5} bg='gray.300' border='2px solid black'>
-        <Text mr={2} color='black' onClick={generateImages}>generate images</Text>
+    <Button width={{base:'auto',lg:'40%'}} height='40px' mt={5} bg='gray.300' border='2px solid black'
+     onClick={generateImages}>
+        <Text mr={2} color='black'>generate images</Text>
         <Icon as={IoMdImages} color='black' boxSize={6}/>
     </Button>
-    <Button  width={{base:'auto',lg:'40%'}} height='40px' mt={5} bg='gray.300' border='2px solid black'>
-        <Text mr={2} color='black' onClick={()=>setShowFlashcardGenerator(!showFlashcardGenerator)}>{showFlashcardGenerator?'hide generator':'show flashcards generator'}</Text>
+    <Button  width={{base:'auto',lg:'40%'}} height='40px' mt={5} bg='gray.300' border='2px solid black'
+     onClick={()=>setShowFlashcardGenerator(!showFlashcardGenerator)}>
+        <Text mr={2} color='black'>{showFlashcardGenerator?'hide generator':'show flashcards generator'}</Text>
         {!showFlashcardGenerator&&<Icon as={FaCogs} color='black' boxSize={6}/>}
     </Button>
     </Stack>
