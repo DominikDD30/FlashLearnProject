@@ -32,20 +32,21 @@ const FlashcardsCreator = () => {
       .map(card => card.concept)
       .filter(concept => concept !== undefined) as string[];
     
-      apiClient.getImagesForFlashcards(conceptsWithoutImage)
-      .then(data => {
-        const updatedFlashcards = flashcards.map(card => {
-          const imageData = data.find(item => item.concept === card.concept);
-          if (imageData) {
-            return { ...card, image: imageData.image };
-          } else {
-            return card;
-          }
-        });
-        creatorStore.setFlashcards(updatedFlashcards);
-      })
-      .catch(error => {
-        console.error("Error whiel fethcing pictures:", error);
+      apiClient.getImagesForFlashcards(conceptsWithoutImage,3)
+      .then(res=>res.data)
+      .then(data=>{
+          const updatedFlashcards = flashcards.map(card => {
+            const imageData = data.find(item => item.concept === card.concept);
+            if (imageData) {
+              return { ...card, image: imageData.image };
+            } else {
+              return card;
+            }
+          });
+          creatorStore.setFlashcards(updatedFlashcards);
+        }
+      ).catch(error => {
+        console.error("Error while fetching pictures:", error);
       });
     }
 

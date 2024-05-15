@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { FlashcardBuilder } from "../entities/FlashcardBuilder";
 import { QuizItemBuilder } from "../entities/QuizItemBuilder";
 import FlashcardsSet from "../entities/FlashcardsSet";
@@ -35,21 +35,25 @@ export const axiosInstance= axios.create({
           ownerId:ownerId,setName:setName,quizItems:quizItems
         },{
           headers: {
-            Authorization: `Bearer ${token}`, 
+            Authorization: `Bearer $n{token}`, 
             'Content-Type': 'application/json',
           }
       })
     }
-    getImagesForFlashcards=(flashcards:string[])=>{
-      const token=localStorage.getItem('token');
-        return axiosInstance.post<FlashcardBuilder[]>(this.endpoint,{flashcards:flashcards},{
+    getImagesForFlashcards = async (flashcards: string[], n: number): Promise<AxiosResponse<FlashcardBuilder[]>> => {
+      const token = localStorage.getItem('token');
+      try {
+        return await axiosInstance.post<FlashcardBuilder[]>(this.endpoint, { flashcards: flashcards }, {
           headers: {
-            Authorization: `Bearer ${token}`, 
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           }
-        })
-        .then(res=>res.data);
-    }
+        });
+      } catch (err) {
+        if (n === 1) throw err;
+        return await this.getImagesForFlashcards(flashcards, n - 1);
+      }
+    };
     getSetsForUser=(userId:number)=>{
       const token=localStorage.getItem('token');
       return axiosInstance.get<FlashcardSetGroupedByDate[]>(this.endpoint+`/user/${userId}`,{

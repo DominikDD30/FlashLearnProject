@@ -96,8 +96,8 @@ const SoloGame = () => {
     <Text  textAlign='center' fontSize='2xl' >collected pairs {scored}</Text>
     <Text  textAlign='center' fontSize='2xl' color='skyblue' >miss moves {moves}</Text>
     </HStack>
-    <SimpleGrid p={{base:'10px 20px 20px 20px',lg:'10px 30px'}} alignItems='center' flexGrow={1}  
-      spacing={deckSize==12? '30px' : deckSize==20? '20px' : '17px'}
+    <SimpleGrid p={{base:'10px 20px 30px 20px',lg:'10px 30px'}} alignItems='center' flexGrow={1}  
+      spacing={deckSize==12? '25px' : deckSize==20? '20px' : '17px'}
       columns={deckSize==12? 4 : deckSize==20? 5 : 6}>
             {cards?.map((card,index)=><FlipCardAnimationWrapper key={index} isBlocked={false}
            flip={(card.position==firstItemFlipedPosition)||(card.position==secondItemFlipedPosition)}> 
