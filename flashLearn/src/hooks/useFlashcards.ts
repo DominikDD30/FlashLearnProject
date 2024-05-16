@@ -9,7 +9,7 @@ import ApiClient from "../services/ApiClient";
 const useFlashcards = (flashcards:string[]) => 
    useQuery({
     queryKey:['flashcards'],
-    queryFn:()=>apiClient.getImagesForFlashcards(flashcards),
+    queryFn:()=>apiClient.getImagesForFlashcards(flashcards,3),
     staleTime:1000*60*60,
   });
 
