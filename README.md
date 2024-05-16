@@ -13,10 +13,6 @@ login: testowy
 password: testowy
 
 ## IMPORTANT!
-. I am using free tier so first request to backend might take  longer because application sleep when innactive (approximately 2 minutes).
-
-. Generating quizzes from pdf work wery slowly so i recommend  to process very small files.
-
 . Multiplayer game via websockets stop working after deploy to web (most likely some firewall block connections) 
 
 
