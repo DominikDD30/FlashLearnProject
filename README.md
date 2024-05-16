@@ -6,7 +6,7 @@ Flashcard is an application that allows users to create and learn flashcards and
 
 
 ## Visit Website  https://flashlearnproject.netlify.app/
-you can use predefined user to sign in
+i recommend to sign in as predefined user but you can create new account as well 
 
 login: testowy
 
