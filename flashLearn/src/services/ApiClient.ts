@@ -5,6 +5,7 @@ import FlashcardsSet from "../entities/FlashcardsSet";
 import { FlashcardSetGroupedByDate } from "../entities/FlashcardSetGroupedByDate";
 import QuizSet from "../entities/QuizSet";
 import { SharedSet } from "../entities/SharedSet";
+import TranslateResponse from "../entities/TranslateResponse";
 
 export const axiosInstance= axios.create({
      baseURL: "http://localhost:8190/flash-learn",
@@ -16,6 +17,8 @@ export const axiosInstance= axios.create({
     constructor(endpoint:string){
         this.endpoint=endpoint;
       }
+
+
 
     createFlashcards=(ownerId:number,setName:string,flashcards:FlashcardBuilder[])=>{
       const token=localStorage.getItem('token');

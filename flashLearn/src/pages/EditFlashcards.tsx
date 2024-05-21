@@ -51,7 +51,8 @@ const EditFlashcards = () => {
       .filter(concept => concept !== undefined) as string[];
       console.log(conceptsWithoutImage);
     
-      pexelClient.getImagesForFlashcards(conceptsWithoutImage)
+      pexelClient.getImagesForFlashcards(conceptsWithoutImage,3)
+      .then(res=>res.data)
       .then(data => {
         const updatedFlashcards = flashcards.map(card => {
           const imageData = data.find(item => item.concept === card.concept);

@@ -1,14 +1,13 @@
-import { Button, Center, HStack, Icon, Stack, Text } from '@chakra-ui/react'
+import { Button, Center, Flex, HStack, Icon, Select, Stack, Text } from '@chakra-ui/react'
 import FlashcardBuilderComponent from './FlashcardBuilderComponent'
 import { IoMdImages } from 'react-icons/io'
 import { FaCogs } from "react-icons/fa";
-
 import {  useState } from 'react'
 import ApiClient from '../../../services/ApiClient';
 import ImageZoomModal from '../../ImageZoomModal';
 import useCreatorStore from '../../../creatorStore';
 import Generator from './Generator';
-import ProcessingSpinner from '../ProcessingSpinner';
+import LanguagePicker from './LanguagePicker';
 
 const apiClient=new ApiClient("/pexel");
 
@@ -19,8 +18,10 @@ const FlashcardsCreator = () => {
     const [selectedPhoto, setSelectedPhoto] = useState<string|null>(null);
     const [showFlashcardGenerator, setShowFlashcardGenerator] = useState<boolean>(false);
     const flashcards=creatorStore.flashcards;
+    
 
   
+    
 
     const generateImages=()=>{
       const isSomeUncompletedCard=flashcards.filter(card=>!card.concept||!card.definition).length>0;
@@ -93,6 +94,8 @@ const FlashcardsCreator = () => {
     </Button>
     </Stack>
     {showFlashcardGenerator&&<Generator/>}
+
+    <LanguagePicker/>
 
     {flashcards.map((card,index)=>
     <FlashcardBuilderComponent key={index}  saveChanges={(_index,concept,definition)=>handleUpdateCard(card.tempId!,concept,definition)} 

@@ -10,6 +10,8 @@ api:
   elevenlabs:
     url: https://api.elevenlabs.io/v1
     apikey: yourKey
+  deepl:
+    apikey: yourKey
 
 spring:
   application:

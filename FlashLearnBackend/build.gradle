@@ -44,7 +44,8 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 
 	//api
-		implementation 'net.datafaker:datafaker:2.1.0'
+	implementation "com.deepl.api:deepl-java:1.5.0"
+	implementation 'net.datafaker:datafaker:2.1.0'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4'
 	//ocr
 	implementation 'net.sourceforge.tess4j:tess4j:5.11.0'
