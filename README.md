@@ -6,17 +6,13 @@ Flashcard is an application that allows users to create and learn flashcards and
 
 
 ## Visit Website  https://flashlearnproject.netlify.app/
-you can use predefined user to sign in
+i recommend to sign in as predefined user but you can create new account as well 
 
 login: testowy
 
 password: testowy
 
 ## IMPORTANT!
-. I am using free tier so first request to backend might take  longer because application sleep when innactive (approximately 2 minutes).
-
-. Generating quizzes from pdf work wery slowly so i recommend  to process very small files.
-
 . Multiplayer game via websockets stop working after deploy to web (most likely some firewall block connections) 
 
 
