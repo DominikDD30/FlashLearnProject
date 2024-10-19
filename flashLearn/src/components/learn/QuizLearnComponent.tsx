@@ -1,17 +1,16 @@
 import { Button, Checkbox, HStack, Stack,Text } from '@chakra-ui/react'
 import { useState } from 'react'
-import QuizSet from '../../entities/QuizSet';
-import QuizAnswers from './QuizAnswers';
-import { Answear, QuizItemBuilder } from '../../entities/QuizItemBuilder';
+import Quiz from '../../entities/Quiz';
+import { Answear, QuestionBuilder } from '../../entities/QuestionBuilder';
 
 interface Props{
-    quizSet:QuizSet;
+    quizSet:Quiz;
 }
 const QuizLearnComponent = ({quizSet}:Props) => {
-    const [quizList,setQuizList]=useState<QuizItemBuilder[]>(quizSet?.quizItems||[]);
+    const [quizList,setQuizList]=useState<QuestionBuilder[]>(quizSet?.questions||[]);
     const [counter,setCounter]=useState(1);
     const [sumElemCounter,setSumElemCounter]=useState(1);
-    const [tempAnswers,setTempAnswers]=useState<{checked:boolean,answer:Answear}[]>(quizList[counter-1].answers.map((answer,index)=>({checked:false,answer})));
+    const [tempAnswers,setTempAnswers]=useState<{checked:boolean,answer:Answear}[]>(quizList[counter-1].answers.map((answer)=>({checked:false,answer})));
        
     const [checkAnswers,setCheckAnswers]=useState(false);
     const [checkAnswerBlocked,setCheckAnswerBlocked]=useState(false);
@@ -20,19 +19,19 @@ const QuizLearnComponent = ({quizSet}:Props) => {
    
 
    
-    const handleCheckAnswer=()=>{
-      if(tempAnswers.filter(answer=>answer.checked).length==0)return;
-      if(checkAnswerBlocked)return;
-      setCheckAnswers(true);
-      const countCheckedCorrectly = tempAnswers.filter(answer =>
-         (answer.checked && answer.answer.isCorrect)||(!answer.checked && !answer.answer.isCorrect))
-         .length;
-      const newSum=countCheckedCorrectly==0?0:countCheckedCorrectly/tempAnswers.length*100;
-      setSum(sum+newSum);
-      setAccuracy(((sum+newSum)==0)?0:(sum+newSum)/sumElemCounter);
-      setSumElemCounter(sumElemCounter+1);
-      setCheckAnswerBlocked(true);
-    }
+      const handleCheckAnswer=()=>{
+        if(tempAnswers.filter(answer=>answer.checked).length==0)return;
+        if(checkAnswerBlocked)return;
+        setCheckAnswers(true);
+        const countCheckedCorrectly = tempAnswers.filter(answer =>
+           (answer.checked && answer.answer.isCorrect)||(!answer.checked && !answer.answer.isCorrect))
+           .length;
+        const newSum=countCheckedCorrectly==0?0:countCheckedCorrectly/tempAnswers.length*100;
+        setSum(sum+newSum);
+        setAccuracy(((sum+newSum)==0)?0:(sum+newSum)/sumElemCounter);
+        setSumElemCounter(sumElemCounter+1);
+        setCheckAnswerBlocked(true);
+      }
 
     const handleReset=()=>{
       setCheckAnswerBlocked(false);
@@ -41,13 +40,13 @@ const QuizLearnComponent = ({quizSet}:Props) => {
         setAccuracy(0);
         setSumElemCounter(1);
         setCheckAnswers(false);
-        setQuizList(quizSet?.quizItems||[]);
-        setTempAnswers(quizSet?.quizItems[0].answers.map((answer,index)=>({checked:false,answer})));
+        setQuizList(quizSet?.questions||[]);
+        setTempAnswers(quizSet?.questions[0].answers.map((answer)=>({checked:false,answer})));
     }
 
     const handleNext=()=>{
         setCheckAnswerBlocked(false);
-        setTempAnswers(quizList[counter].answers.map((answer,index)=>({checked:false,answer})));
+        setTempAnswers(quizList[counter].answers.map((answer)=>({checked:false,answer})));
         setCounter(counter+1);
         setCheckAnswers(false);
     }

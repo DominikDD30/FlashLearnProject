@@ -21,6 +21,6 @@ public class PexelController {
 
     @PostMapping
     public List<FlashcardDTO>getPhotos(@RequestBody FlashcardsReqestDTO flashcards){
-        return pexelService.findImagesForFlashcards(flashcards.getFlashcards());
+        return pexelService.findImagesForFlashcards(flashcards.getFlashcards(),flashcards.getLanguage());
     }
 }

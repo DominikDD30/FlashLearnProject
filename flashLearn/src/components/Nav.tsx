@@ -21,7 +21,7 @@ const Nav = () => {
           userStore.setUserId(res.data.userId);
           userStore.setEmail(res.data.email);
         })
-        .catch(e=>{
+        .catch(()=>{
           localStorage.removeItem('token');
           userStore.reset();
         })
@@ -36,25 +36,26 @@ const Nav = () => {
   return (
     <>
     <ContentsMenu show={showContentsMenu} closeContents={()=>setShowContentsMenu(false)}/>
-    <HStack height='70px' width='100%' bg='white' shadow='sm' p='0px 15px' >
+    <HStack height='70px' width='100%' bg='white' shadow='sm' p='0px 10px' >
     {userStore.email&&<HamburgerIcon  cursor='pointer'  color='gray.600' boxSize={7} onClick={handleShowMenu} />}
         <Link to='/'><Text fontSize={{base:'xl',lg:'3xl'}} ml={2} fontWeight='bold' color='gold'>
             FlashLearn
         <Icon as={FcFlashOn} boxSize={{base:6,lg:8}}/>
         </Text></Link>
         
+        
         {!userStore.email?<>
         <Center height='55%'  cursor='pointer' ml='auto'>
-           <Link to={'/login'}><Text color='gray.600' fontSize='16px' fontWeight='500'>Login</Text></Link>
+           <Link to={'/login'}><Text color='gray.600' fontSize='15px' fontWeight='500'>Login</Text></Link>
         </Center>
 
-        <Center height='55%' width='80px'  bg='gold' cursor='pointer' ml='10px'  borderRadius='10px'>
-        <Link to={'/register'}><Text color='black' fontSize='15px' fontWeight='500'>Register</Text></Link>
+        <Center height='55%' width='75px'  bg='gold' cursor='pointer' ml='10px'  borderRadius='10px'>
+        <Link to={'/register'}><Text color='gray.700' fontSize='15px' fontWeight='500'>Register</Text></Link>
         </Center></>
       :
       <Center height='55%' width='80px'  bg='gold' cursor='pointer' ml='auto'  borderRadius='10px'>
-      <Text color='black' fontSize='15px' fontWeight='500'>Upgrade</Text>
-  </Center>  
+      <Text fontSize='15px' color='gray.700' fontWeight='500'>Upgrade</Text>
+      </Center>  
       }
         
     </HStack>

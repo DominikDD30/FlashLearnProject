@@ -16,9 +16,9 @@ const Creator = () => {
     const setNameRef=useRef<HTMLInputElement>(null);
     const creatorStore=useCreatorStore();
     const userStore=useUserStore();
+    const navigate=useNavigate();
     const toast = useToast()
     const toastIdRef = useRef<ToastId | undefined>();
-    const navigate=useNavigate();
     const [isLargerThan1200] = useMediaQuery('(min-width: 1200px)');
 
 
@@ -26,6 +26,7 @@ const Creator = () => {
       creatorStore.reset();
     },[]);
     const handleCreate= ()=>{
+     
       if(creatorStore.setName&&(creatorStore.flashcards.length>2||creatorStore.quizItems.length>2)){
         console.log("asfsaf")
       if(option==1&&creatorStore.flashcards.length>2){
@@ -40,7 +41,7 @@ const Creator = () => {
       userStore.triggerRefetch();
       navigate('/');
     }else{
-      showToast();
+     showToast();
     }
     }
 
@@ -50,20 +51,20 @@ const Creator = () => {
       }
     }
 
-  function showToast() {
-    toastIdRef.current = toast({
-      description: 'your set should contain at least 3 items and has title',
-      status: 'warning',
-      duration: 2000,
-      position:'bottom',
-      containerStyle: {
-        marginBottom: '100px',
-      }
-     })
-  }
+    function showToast() {
+      toastIdRef.current = toast({
+        description: 'your set should contain at least 3 items',
+        status: 'warning',
+        duration: 2000,
+        position:'bottom',
+        containerStyle: {
+          marginBottom: '100px',
+        }
+       })
+    }
 
   return (
-    <Flex minHeight='100vh' mr='auto' ml='auto' width={isLargerThan1200?'60%':'100%'} color='black' flexDirection='column' mb='100px' padding='0 15px'>
+    <Flex minHeight='100vh'  mr='auto' ml='auto' width={isLargerThan1200?'60%':'100%'} color='black' flexDirection='column' mb='100px' padding='0 15px'>
     {/* <Flex minHeight='100vh' width='100%' color='black' flexDirection='column' mb='100px' padding='0 15px'> */}
         <Box  fontSize='2xl' margin='20px auto'  fontWeight='semibold'>Create new Set</Box>
     <HStack justifyContent='space-around'>

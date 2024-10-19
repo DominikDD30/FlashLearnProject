@@ -1,6 +1,6 @@
-import { Center, HStack,Text } from '@chakra-ui/react'
-import React, { useRef, useState } from 'react'
-import { Answear } from '../../../entities/QuizItemBuilder'
+import { HStack,Text } from '@chakra-ui/react'
+import { useRef, useState } from 'react'
+import { Answear } from '../../../entities/QuestionBuilder'
 
 interface Props{
     answear:Answear;

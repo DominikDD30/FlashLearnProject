@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Button,  FormLabel, Text, Input, Flex, InputGroup, InputRightElement, Show, Center, Stack, Box, useToast } from '@chakra-ui/react'
-import { Link, useNavigate } from 'react-router-dom'
-import AuthClient from '../../services/authClient';
+import { Button,  FormLabel, Text, Input, Flex, InputGroup, InputRightElement, Center, Stack, Box, useToast } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import useUserStore from '../../userStore';
 import { FieldValues, useForm } from 'react-hook-form';

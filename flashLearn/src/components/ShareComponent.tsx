@@ -25,7 +25,7 @@ const ShareComponent = () => {
         if(set?.flashcardsSet){
              apiClient.createFlashcards(userState.userId!,set?.flashcardsSetDTO.setName,set?.flashcardsSetDTO.flashcards.map(flashcard=>({id:undefined,concept:flashcard.concept,definition:flashcard.definition})));
         }else{
-            apiClient.createQuiz(userState.userId!,set?.quizSetDTO.setName!,set?.quizSetDTO.quizItems!);
+            apiClient.createQuiz(userState.userId!,set?.quizSetDTO.setName!,set?.quizSetDTO.questions!);
         } 
         navigate('/');
     }
@@ -39,7 +39,7 @@ const ShareComponent = () => {
 
     return (
         <Stack padding='30px'  mr='auto' ml='auto' width={isLargerThan1200?'40%':'auto'} flexGrow={1} >
-        <Text color='gray.600' textAlign='center' fontSize='xl' whiteSpace='break-spaces' mb={2}>Do you want to add a set {'\n'} of user {set.owner?.substring(0, set.owner?.indexOf('@'))} ?</Text>
+        <Text color='gray.600' textAlign='center' fontSize='xl' whiteSpace='break-spaces' mb={2}>Do you want to add this set ?</Text>
 
         <Stack position='relative' height='200px' border='2px solid gray' overflow='hidden' borderRadius='15px' padding='20px' width='100%'> 
             <Text fontWeight='500' width='80%' color='gray.600'>
@@ -49,7 +49,7 @@ const ShareComponent = () => {
             <Flex mt={1}> 
                 <Box bg='gray.200' border='2px solid var(--chakra-colors-gray-300)' height='30px' p='0 10px' color='gray.600'
                   lineHeight='25px' borderRadius='10px'>
-                    {set.flashcardsSet?`${set.flashcardsSetDTO.flashcards.length}  cards`:`${set.quizSetDTO.quizItems.length}  questions`}
+                    {set.flashcardsSet?`${set.flashcardsSetDTO.flashcards.length}  cards`:`${set.quizSetDTO.questions.length}  questions`}
                 </Box>
             </Flex>
 

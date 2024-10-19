@@ -14,10 +14,10 @@ public class PexelService {
 
     private PexelApiClientImpl pexelApiClient;
 
-    public List<FlashcardDTO> findImagesForFlashcards(List<String> flashcards) {
+    public List<FlashcardDTO> findImagesForFlashcards(List<String> flashcards, String language) {
         return flashcards.stream()
                 .map(flashcard -> {
-                    PexelPhotosResponse pexelPhotos = pexelApiClient.findImageForflashcard(flashcard);
+                    PexelPhotosResponse pexelPhotos = pexelApiClient.findImageForflashcard(flashcard,language);
                    return FlashcardDTO.builder()
                         .concept(flashcard)
                         .image(pexelPhotos.getPhotos().get(0).getSrc().tiny())

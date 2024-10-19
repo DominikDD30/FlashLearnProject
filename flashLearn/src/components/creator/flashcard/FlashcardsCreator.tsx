@@ -1,13 +1,14 @@
-import { Button, Center, Flex, HStack, Icon, Select, Stack, Text } from '@chakra-ui/react'
+import { Button, Center, Icon, Stack, Text, ToastId, useToast } from '@chakra-ui/react'
 import FlashcardBuilderComponent from './FlashcardBuilderComponent'
 import { IoMdImages } from 'react-icons/io'
 import { FaCogs } from "react-icons/fa";
-import {  useState } from 'react'
+import {  useRef, useState } from 'react'
 import ApiClient from '../../../services/ApiClient';
 import ImageZoomModal from '../../ImageZoomModal';
 import useCreatorStore from '../../../creatorStore';
 import Generator from './Generator';
 import LanguagePicker from './LanguagePicker';
+import { languages } from '../../../entities/Languages';
 
 const apiClient=new ApiClient("/pexel");
 
@@ -17,13 +18,20 @@ const FlashcardsCreator = () => {
     const creatorStore=useCreatorStore();
     const [selectedPhoto, setSelectedPhoto] = useState<string|null>(null);
     const [showFlashcardGenerator, setShowFlashcardGenerator] = useState<boolean>(false);
+    const toast = useToast()
+    const toastIdRef = useRef<ToastId | undefined>();
     const flashcards=creatorStore.flashcards;
-    
 
   
-    
 
+    
     const generateImages=()=>{
+      const language=languages.find(l=>l.code==creatorStore.firstLanguage)?.pexelCode;
+      if(!language){
+        
+        showToast();
+        return;
+      }
       const isSomeUncompletedCard=flashcards.filter(card=>!card.concept||!card.definition).length>0;
       console.log(flashcards);
       if(isSomeUncompletedCard) return;
@@ -33,7 +41,7 @@ const FlashcardsCreator = () => {
       .map(card => card.concept)
       .filter(concept => concept !== undefined) as string[];
     
-      apiClient.getImagesForFlashcards(conceptsWithoutImage,3)
+      apiClient.getImagesForFlashcards(conceptsWithoutImage,language,3)
       .then(res=>res.data)
       .then(data=>{
           const updatedFlashcards = flashcards.map(card => {
@@ -50,7 +58,8 @@ const FlashcardsCreator = () => {
         console.error("Error while fetching pictures:", error);
       });
     }
-
+      
+      
 
       const handleUpdateCard = (_index: number, concept: string, definition: string) => {
         const updatedCard = flashcards[_index];
@@ -72,7 +81,18 @@ const FlashcardsCreator = () => {
         creatorStore.setFlashcards([...flashcards.filter(flashcard=>flashcard.tempId!=id).sort((a,b)=>a.tempId!-b.tempId!)]);
       }
     
-
+      function showToast() {
+        toastIdRef.current = toast({
+          description: 'generating images currently supports: English, German, French, Italian, Polish, Spanish Please select one of them in the language picker',
+          status: 'warning',
+          duration: 4000,
+          position:'bottom',
+          containerStyle: {
+            marginBottom: '100px',
+          }
+         })
+      }
+      
 
   return (
     <>
@@ -82,14 +102,13 @@ const FlashcardsCreator = () => {
     </Center>
     <ImageZoomModal selectedPhoto={selectedPhoto} closeModal={() =>setSelectedPhoto(null)}/>
     <Stack mb={10}>
-    <Button width={{base:'auto',lg:'40%'}} height='40px' mt={5} bg='gray.300' border='2px solid black'
-     onClick={generateImages}>
-        <Text mr={2} color='black'>generate images</Text>
+    <Button width={{base:'auto',lg:'40%'}} height='40px' mt={5} bg='gray.300' border='2px solid black' onClick={generateImages}>
+        <Text mr={2} color='black' >generate images</Text>
         <Icon as={IoMdImages} color='black' boxSize={6}/>
     </Button>
     <Button  width={{base:'auto',lg:'40%'}} height='40px' mt={5} bg='gray.300' border='2px solid black'
-     onClick={()=>setShowFlashcardGenerator(!showFlashcardGenerator)}>
-        <Text mr={2} color='black'>{showFlashcardGenerator?'hide generator':'show flashcards generator'}</Text>
+    onClick={()=>setShowFlashcardGenerator(!showFlashcardGenerator)}>
+        <Text mr={2} color='black' >{showFlashcardGenerator?'hide generator':'show flashcards generator'}</Text>
         {!showFlashcardGenerator&&<Icon as={FaCogs} color='black' boxSize={6}/>}
     </Button>
     </Stack>

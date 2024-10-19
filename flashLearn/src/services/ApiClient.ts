@@ -1,14 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 import { FlashcardBuilder } from "../entities/FlashcardBuilder";
-import { QuizItemBuilder } from "../entities/QuizItemBuilder";
+import { QuestionBuilder } from "../entities/QuestionBuilder";
 import FlashcardsSet from "../entities/FlashcardsSet";
 import { FlashcardSetGroupedByDate } from "../entities/FlashcardSetGroupedByDate";
-import QuizSet from "../entities/QuizSet";
+import Quiz from "../entities/Quiz";
 import { SharedSet } from "../entities/SharedSet";
-import TranslateResponse from "../entities/TranslateResponse";
 
 export const axiosInstance= axios.create({
-     baseURL: "http://localhost:8190/flash-learn",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   });
 
   class ApiClient{
@@ -17,8 +16,6 @@ export const axiosInstance= axios.create({
     constructor(endpoint:string){
         this.endpoint=endpoint;
       }
-
-
 
     createFlashcards=(ownerId:number,setName:string,flashcards:FlashcardBuilder[])=>{
       const token=localStorage.getItem('token');
@@ -32,21 +29,22 @@ export const axiosInstance= axios.create({
       })
     }
 
-    createQuiz=(ownerId:number,setName:string,quizItems:QuizItemBuilder[])=>{
+    createQuiz=(ownerId:number,setName:string,quizItems:QuestionBuilder[])=>{
       const token=localStorage.getItem('token');
         axiosInstance.post(this.endpoint+'/quiz',{
           ownerId:ownerId,setName:setName,quizItems:quizItems
         },{
           headers: {
-            Authorization: `Bearer $n{token}`, 
+            Authorization: `Bearer ${token}`, 
             'Content-Type': 'application/json',
           }
       })
     }
-    getImagesForFlashcards = async (flashcards: string[], n: number): Promise<AxiosResponse<FlashcardBuilder[]>> => {
+   
+    getImagesForFlashcards = async (flashcards: string[],language:string, n: number): Promise<AxiosResponse<FlashcardBuilder[]>> => {
       const token = localStorage.getItem('token');
       try {
-        return await axiosInstance.post<FlashcardBuilder[]>(this.endpoint, { flashcards: flashcards }, {
+        return await axiosInstance.post<FlashcardBuilder[]>(this.endpoint, { flashcards: flashcards,language:language }, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -54,7 +52,7 @@ export const axiosInstance= axios.create({
         });
       } catch (err) {
         if (n === 1) throw err;
-        return await this.getImagesForFlashcards(flashcards, n - 1);
+        return await this.getImagesForFlashcards(flashcards,language, n - 1);
       }
     };
     getSetsForUser=(userId:number)=>{
@@ -69,7 +67,7 @@ export const axiosInstance= axios.create({
     }
     getQuizListForUser=(userId:number)=>{
       const token=localStorage.getItem('token');
-      return axiosInstance.get<QuizSet[]>(this.endpoint+`/user/${userId}`,{
+      return axiosInstance.get<Quiz[]>(this.endpoint+`/user/${userId}`,{
         headers: {
           Authorization: `Bearer ${token}`, 
           'Content-Type': 'application/json',
@@ -104,7 +102,7 @@ export const axiosInstance= axios.create({
       const token=localStorage.getItem('token');
       const formData = new FormData();
     formData.append('file', file);
-    return axiosInstance.post<QuizItemBuilder[]>(this.endpoint+'/quiz', formData, {
+    return axiosInstance.post<QuestionBuilder[]>(this.endpoint+'/quiz', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -169,7 +167,7 @@ export const axiosInstance= axios.create({
       )
     }
 
-    updateSet=(setId:number,ownerId:number,setName:string,quizItems:QuizItemBuilder[])=>{
+    updateSet=(setId:number,ownerId:number,setName:string,quizItems:QuestionBuilder[])=>{
       const token=localStorage.getItem('token');
       return axiosInstance.put(this.endpoint+`/${setId}`,{
         setName:setName,ownerId:ownerId,quizItems:quizItems},

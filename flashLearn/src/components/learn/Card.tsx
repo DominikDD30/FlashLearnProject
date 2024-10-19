@@ -24,7 +24,7 @@ const Card = ({activeFlashcard,opacityValue,animationBlocked,showDefinition,flip
     <Image w='100%' src={smallWenus} mb='50px' opacity={opacityValue?0:1} objectFit='cover'/>}
     {/* <Image w='100%' src={activeFlashcard.image} mb='50px' opacity={opacityValue?0:1} objectFit='cover'/>} */}
 
-    <Text fontSize='27px' opacity={opacityValue?0:1}  w='100vw'  textAlign='center' color='white' transform={showDefinition?'rotateY(180deg)':''}>
+    <Text fontSize='27px' minH='' backgroundColor='red' opacity={opacityValue?0:1}  w='100vw'  textAlign='center' color='white' transform={showDefinition?'rotateY(180deg)':''}>
       {`${showDefinition? activeFlashcard.definition : activeFlashcard.concept}`}
       </Text>
    </Flex>

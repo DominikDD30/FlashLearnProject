@@ -1,6 +1,6 @@
 import React from 'react'
-import QuizSet from '../entities/QuizSet';
-import { Stack,Text,Flex, HStack, Box, Icon, Button, AlertIcon, Alert } from '@chakra-ui/react';
+import Quiz from '../entities/Quiz';
+import { Stack,Text,Flex, HStack, Box, Icon, AlertIcon, Alert } from '@chakra-ui/react';
 import { FaUserCircle } from 'react-icons/fa';
 import useCreatorStore from '../creatorStore';
 import { useNavigate } from 'react-router-dom';
@@ -11,13 +11,13 @@ import useUserStore from '../userStore';
 import { MdOutlineQuiz  } from "react-icons/md";
 
 interface Props{
-        set:QuizSet;
+        quiz:Quiz;
         owner:string;
         handlePlayQuiz:(quizId:number)=>void;
 }
 
 const apiClient = new ApiClient('/quiz');
-const QuizSetComponent = ({set,owner,handlePlayQuiz}:Props) => {
+const QuizSetComponent = ({quiz: quiz,owner,handlePlayQuiz}:Props) => {
     const createStore=useCreatorStore();
     const userStore=useUserStore();
     const [showMenu, setShowMenu] = React.useState(false);
@@ -27,16 +27,16 @@ const QuizSetComponent = ({set,owner,handlePlayQuiz}:Props) => {
 
 
     const handleEditSet=()=>{
-        createStore.setQuizItems(set.quizItems);
-        createStore.setSetName(set.setName);
+        createStore.setQuizItems(quiz.questions);
+        createStore.setSetName(quiz.setName);
         createStore.setisUpdating(true);
-        navigate('/editQuiz/'+set.setId);
+        navigate('/editQuiz/'+quiz.quizId);
         console.log('edit set')
     }  
 
     
  const handleCopiedLink=()=>{
-    navigator.clipboard.writeText(`http://localhost:5174/share/${set.shareCode}`);
+    navigator.clipboard.writeText(`http://localhost:5174/share/${quiz.shareCode}`);
     setShowMenu(false);
     setShowCopiedAlert(true);
     setTimeout(()=>setShowCopiedAlert(false),2000);
@@ -44,13 +44,13 @@ const QuizSetComponent = ({set,owner,handlePlayQuiz}:Props) => {
 
     const handleDelete=()=>{
     
-        apiClient.deleteQuizSet(set.setId);
+        apiClient.deleteQuizSet(quiz.quizId);
         userStore.triggerRefetch();
     }
 
     const menu= <Stack justifyContent='space-evenly' color='gray.600'  left={showMenu?'0':'100%'} transition='0.7s' position='absolute' margin='-20px 0px' height='100%'
     border='2px solid gray' bg='gray.200' borderRadius='15px' padding='10px' width='100%' cursor='pointer' >
-     <HStack onClick={()=>handlePlayQuiz(set.setId)}>
+     <HStack onClick={()=>handlePlayQuiz(quiz.quizId)}>
         <Icon boxSize={5} as={MdOutlineQuiz }/><Text ml={1} fontSize='lg'>learn</Text>
      </HStack>
      <HStack onClick={handleCopiedLink}> 
@@ -72,11 +72,11 @@ const QuizSetComponent = ({set,owner,handlePlayQuiz}:Props) => {
         <ConfirmationModal open={showConfirmation} close={()=>{setShowConfirmation(false);setShowMenu(false)}} confirmed={()=>handleDelete()}/>
         <Stack position='relative' height='200px' border='2px solid gray' overflow='hidden' borderRadius='15px' padding='20px' width='100%'> 
          {menu}
-            <Text fontWeight='500' width='80%' color='gray.600'>{set.setName}</Text>
+            <Text fontWeight='500' width='80%' color='gray.600'>{quiz.setName}</Text>
             <Icon position='absolute' top='10px' right='10px' as={HamburgerIcon} boxSize={6} color='gray.600'
              cursor='pointer' onClick={()=>setShowMenu(!showMenu)}/>
             <Flex mt={1}> <Box bg='gray.200' border='2px solid var(--chakra-colors-gray-300)' height='30px' p='0 10px' color='gray.600'
-             lineHeight='25px' borderRadius='10px'>{set.questionsAmount} cards</Box></Flex>
+             lineHeight='25px' borderRadius='10px'>{quiz.questionsAmount} cards</Box></Flex>
             <HStack mt='auto'><Icon as={FaUserCircle} boxSize={10} color='gray.600'/><Text color='gray.600'>{owner}</Text></HStack>
           </Stack>
           </>

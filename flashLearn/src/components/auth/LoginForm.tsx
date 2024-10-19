@@ -20,7 +20,7 @@ interface SignInData{
 
 
 const LoginForm = () => {
-  const {register,handleSubmit,formState:{errors}}=useForm<SignInData>();
+  const {register,handleSubmit}=useForm<SignInData>();
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const navigate=useNavigate();

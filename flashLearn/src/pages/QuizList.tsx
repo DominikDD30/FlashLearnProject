@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import useCreatorStore from '../creatorStore';
 import useUserStore from '../userStore';
 import useQuizList from '../hooks/useQuizList';
-import { Button, Checkbox, HStack, Spinner, Stack ,Text, useMediaQuery} from '@chakra-ui/react';
+import { Stack ,useMediaQuery} from '@chakra-ui/react';
 import QuizSetComponent from '../components/QuizSetComponent';
-import QuizSet from '../entities/QuizSet';
-import { set } from 'react-hook-form';
+import Quiz from '../entities/Quiz';
 import QuizLearnComponent from '../components/learn/QuizLearnComponent';
 import ApiClient from '../services/ApiClient';
 
@@ -16,11 +15,10 @@ const QuizList = () => {
     const createStore=useCreatorStore();
     const userStore=useUserStore();
     const sets=useQuizList(userStore.userId||-1);
-    const playedQuiz=sets.data?.find((set:QuizSet)=>set.setId==activeQuiz);
+    const playedQuiz=sets.data?.find((set:Quiz)=>set.quizId==activeQuiz);
     const [isLargerThan1200] = useMediaQuery('(min-width: 1200px)');
-  
-    useEffect
-    (()=>{
+    
+    useEffect(()=>{
       setActiveQuiz(undefined);
     },[userStore.refetchTrigger]);
 
@@ -41,8 +39,8 @@ const QuizList = () => {
   return (
     <>
      <Stack  spacing={4} minHeight='100vh'  mr='auto' ml='auto' width={isLargerThan1200?'40%':'100%'}  padding='15px'>
-        {sets?.data?.map((set, index) => (
-          <QuizSetComponent key={index} set={set} owner={userStore.email || ''} handlePlayQuiz={(quizId)=>handlePlayQuiz(quizId)} />
+        {Array.isArray(sets.data)&&sets?.data?.map((set, index) => (
+          <QuizSetComponent key={index} quiz={set} owner={userStore.email || ''} handlePlayQuiz={(quizId)=>handlePlayQuiz(quizId)} />
         ))}
        </Stack>
     </>

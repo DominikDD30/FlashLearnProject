@@ -1,5 +1,4 @@
 import {Image,  Modal, ModalContent, ModalBody, ModalOverlay, ModalCloseButton } from '@chakra-ui/react';
-import React from 'react'
 
 
 interface Props{

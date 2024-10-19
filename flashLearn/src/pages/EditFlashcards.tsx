@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import ApiClient from '../services/ApiClient';
-import { FlashcardBuilder } from '../entities/FlashcardBuilder';
-import { Button, Center, Icon,Text, Input, Box, useMediaQuery } from '@chakra-ui/react';
+import { Button, Center, Icon,Text, Input, Box, useMediaQuery, ToastId, useToast } from '@chakra-ui/react';
 import ImageZoomModal from '../components/ImageZoomModal';
 import FlashcardBuilderComponent from '../components/creator/flashcard/FlashcardBuilderComponent';
 import { IoMdImages } from 'react-icons/io';
-import useFlashcardSet from '../hooks/useFlashcardSet';
 import useCreatorStore from '../creatorStore';
-import { set } from 'react-hook-form';
+import { languages } from '../entities/Languages';
 
 
 const apiClient = new ApiClient('/flashcards');
@@ -18,7 +16,8 @@ const EditFlashcards = () => {
     const creatorStore=useCreatorStore();
     const [setName,setSetName]=React.useState('');
     const [selectedPhoto, setSelectedPhoto] = useState<string|null>(null);
-    // const set= useFlashcardSet(parseInt(setId!));
+    const toast = useToast()
+    const toastIdRef = useRef<ToastId | undefined>();
     const setNameRef=useRef<HTMLInputElement>(null);
     const flashcards=creatorStore.flashcards;
     const navigate=useNavigate();
@@ -43,6 +42,12 @@ const EditFlashcards = () => {
     }
 
     const generateImages=()=>{
+      const language=languages.find(l=>l.code==creatorStore.firstLanguage)?.pexelCode;
+      if(!language){
+        
+        showToast();
+        return;
+      }
       const isSomeUncompletedCard=flashcards.filter(card=>!card.concept||!card.definition).length>0;
       if(isSomeUncompletedCard) return;
       const conceptsWithoutImage = flashcards
@@ -51,7 +56,7 @@ const EditFlashcards = () => {
       .filter(concept => concept !== undefined) as string[];
       console.log(conceptsWithoutImage);
     
-      pexelClient.getImagesForFlashcards(conceptsWithoutImage,3)
+      pexelClient.getImagesForFlashcards(conceptsWithoutImage,language,3)
       .then(res=>res.data)
       .then(data => {
         const updatedFlashcards = flashcards.map(card => {
@@ -106,6 +111,19 @@ const EditFlashcards = () => {
     const handleDeleteCard=(id:number)=>{
       creatorStore.setFlashcards([...flashcards.filter(flashcard=>flashcard.id!=id)]);
     }
+
+    function showToast() {
+      toastIdRef.current = toast({
+        description: 'generating images currently supports: English, German, French, Italian, Polish, Spanish Please select one of them in the language picker',
+        status: 'warning',
+        duration: 4000,
+        position:'bottom',
+        containerStyle: {
+          marginBottom: '100px',
+        }
+       })
+    }
+
   return (
     <Box mr='auto' ml='auto' width={isLargerThan1200?'60%':'100%'}>
     <Input mt={5} ref={setNameRef} value={setName} onChange={handleSetNameChange} _focus={{boxShadow:'none',border:'none',borderBottom:'1px solid black'}} 
@@ -122,7 +140,7 @@ const EditFlashcards = () => {
     </Button>
     {flashcards.map((card,index)=>
     <FlashcardBuilderComponent key={card.id}  saveChanges={(index,concept,definition)=>handleUpdateCard(index,concept,definition)} 
-    id={card.id} index={index} concept={card.concept} image={card.image} definition={card.definition} handleDeleteCard={()=>handleDeleteCard(card.id)}
+    id={card.id!} index={index} concept={card.concept} image={card.image} definition={card.definition} handleDeleteCard={()=>handleDeleteCard(card.id!)}
       handleImageClick={(url)=>setSelectedPhoto(url)}/>)}
       <Button width='100%' height='40px' mt={10} mb={5} bg='gray.300' color='black' 
     border='2px solid black'onClick={handleUpdate}>

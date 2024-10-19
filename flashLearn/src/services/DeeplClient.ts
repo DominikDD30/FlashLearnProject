@@ -1,9 +1,9 @@
-import * as deepl from 'deepl-node';
-import TranslateResponse from '../entities/TranslateResponse';
+
 import axios from 'axios';
+import TranslateResponse from '../entities/TranslateResponse';
 
 export const axiosInstance= axios.create({
-    baseURL: "http://localhost:8190/flash-learn/deepl",
+    baseURL: import.meta.env.VITE_API_BASE_URL+'/deepl',
  });
 
 
@@ -17,8 +17,9 @@ class DeeplClient{
       
     translateText=(text:string,source:string,target:string)=>{
       const token=localStorage.getItem('token');
+      const newSource=source=='EN-GB'?'EN':source;
         return axiosInstance.get<TranslateResponse>(this.endpoint+'/translate',{
-          params:{text:text,source:source,target:target},
+          params:{text:text,source:newSource,target:target},
                headers: {
                  Authorization: `Bearer ${token}`, 
                  'Content-Type': 'application/json',

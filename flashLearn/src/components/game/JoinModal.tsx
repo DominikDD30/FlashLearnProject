@@ -1,39 +1,55 @@
-import React from 'react'
-import { Button, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Stack, Text, useDisclosure } from '@chakra-ui/react';
-import GameClient from './GameClient';
-import useGameStore from '../../gameStore';
+import React, { useEffect } from 'react'
+import { Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Stack, useDisclosure } from '@chakra-ui/react';
+import socket from '../../../socket';
 import { useNavigate } from 'react-router-dom';
+import useGameStore from '../../gameStore';
 
 interface Props{
     open:boolean;
     close:()=>void;
-    joinCode:string;
+    roomName:string;
 }
-const JoinModal = ({open,close,joinCode}:Props) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+const JoinModal = ({open,close,roomName: roomName}:Props) => {
+    const { onClose } = useDisclosure();
     const initialRef = React.useRef<HTMLInputElement>(null);
+    const gameStore=useGameStore();
     const navigate=useNavigate();
     // const joinCodeRef = React.useRef<HTMLInputElement>(null);
-    const { joinGame } = GameClient();
-    const gameStore=useGameStore();
+
+
+    useEffect(() => {
+      socket.on('init_game', (_roomName:string,setId:number,pairs:number,players:string[]) => {
+        navigate("/game/"+_roomName); 
+        gameStore.setSetId(setId);
+        gameStore.setRoomName(_roomName);
+        gameStore.setPairs(pairs);
+        gameStore.setplayers(players);
+        gameStore.setplayerName(initialRef.current!.value);
+        gameStore.setSecondPlayerName('owner');
+      });
+    }, []);
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter'&&initialRef.current?.value) {
-          gameStore.setPlayerName(initialRef.current.value);
-          joinGame(joinCode,initialRef.current.value);
+          joinGame(roomName,initialRef.current.value);
           close();
-          
         }
       };
     const handleJoinGame=()=>{
         if(initialRef.current?.value){
-          gameStore.setPlayerId("second");
-          gameStore.setPlayerName(initialRef.current.value);
-          joinGame(joinCode,initialRef.current.value);
+          joinGame(roomName,initialRef.current.value);
           close();
-          
-      };
+      }
     }
+
+    const joinGame=(roomName:string,nick:string)=>{
+      socket.emit('join_room', roomName,nick, (isSuccess:boolean) => {
+        if (!isSuccess) {
+          alert('Room does not exist');
+        }
+      });
+    }
+
   return (
     <Modal size='md' onClose={()=>{onClose();close()}} isOpen={open}    initialFocusRef={initialRef}
          closeOnOverlayClick={true}>

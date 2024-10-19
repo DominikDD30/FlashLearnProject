@@ -15,7 +15,7 @@ const FlipCardAnimationWrapper = ({ children,flip,isBlocked}: Props) => {
   },[flip]);
   
   return (
-    <Box borderRadius={10} >
+    <Box borderRadius={10}>
     <Box  borderRadius={10}   cursor='initial'
         transition={isBlocked?'':'transform 1.1s'} transform={rotate?'rotateY(180deg) scale(1.05)':''} style={{transformStyle:'preserve-3d'}}>
     {children}

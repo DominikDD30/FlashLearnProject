@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { Answear, QuizItemBuilder } from '../../../entities/QuizItemBuilder';
-import { Stack,Text,Input, HStack, Textarea } from '@chakra-ui/react';
+import { Answear, QuestionBuilder } from '../../../entities/QuestionBuilder';
+import { Stack,Text,HStack, Textarea } from '@chakra-ui/react';
 import FloatingText from '../../FloatingText';
 import useCreatorStore from '../../../creatorStore';
 import AnswearComponent from './AnswearComponent';
 
 interface Props{
-    quizItem:QuizItemBuilder;
+    quizItem:QuestionBuilder;
 }
 const QuizItemBuilderComponent = ({quizItem}:Props) => {
     const creatorStore=useCreatorStore();
@@ -43,14 +43,12 @@ const QuizItemBuilderComponent = ({quizItem}:Props) => {
     const updateAnswear=(updatedAnswear:Answear)=>{
           const tempAnswears=quizItem.answers.filter(answear=>answear.id!=updatedAnswear.id);
           tempAnswears.push(updatedAnswear);
-          // tempAnswears.sort((a1,a2)=>a1.id-a2.id);
           creatorStore.updateQuizItem({id:quizItem.id,question:quizItem.question,answers:tempAnswears});
         }
 
   const handleAddNewAnswear=()=>{
     const tempAnswears=quizItem.answers;
     tempAnswears.push({value:'',isCorrect:true});
-    // tempAnswears.push({id:quizItem.answers.length+1,value:'',isCorrect:true});
     creatorStore.updateQuizItem({id:quizItem.id,question:quizItem.question,answers:tempAnswears});
   }
 
@@ -61,7 +59,7 @@ const QuizItemBuilderComponent = ({quizItem}:Props) => {
     }
     else{
     creatorStore.updateQuizItem({id:quizItem.id,question:quizItem.question,
-      answers:quizItem.answers.filter((answear,index)=>index!=quizItem.answers.length-1)});
+      answers:quizItem.answers.filter((_answear,index)=>index!=quizItem.answers.length-1)});
     }
   }
 
@@ -77,7 +75,6 @@ const QuizItemBuilderComponent = ({quizItem}:Props) => {
           pt='45px' 
          onChange={handleQuestionChange} onBlur={handleSaveChanges}/>
      <HStack justifyContent='space-between' mt={'60px'}>
-     {/* <Text color='gray.600' mt={5}  fontWeight='semibold' fontSize='lg'>Answears</Text>  */}
      <Text color='gray.600' mt={10}  fontWeight='semibold' fontSize='lg'>Mark good answers by click on id</Text> 
      </HStack>
      <Stack flexGrow={1} spacing={3} pt='15px' pb='10px'>

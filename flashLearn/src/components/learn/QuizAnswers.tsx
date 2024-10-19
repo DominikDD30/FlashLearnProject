@@ -1,6 +1,5 @@
 import { Checkbox, HStack, Stack ,Text} from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import { Answear } from '../../entities/QuizItemBuilder'
+import { Answear } from '../../entities/QuestionBuilder'
 
 interface Props{
   answers:{checked:boolean,answer:Answear}[];

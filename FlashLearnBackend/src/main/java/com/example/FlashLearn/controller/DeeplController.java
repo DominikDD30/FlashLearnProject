@@ -27,7 +27,7 @@ public class DeeplController {
         try {
             String translated = deeplService.translate(text, source, target);
             return TranslateResponse.builder().text(translated).build();
-        } catch (DeepLException | InterruptedException e) {
+        } catch (RuntimeException |DeepLException | InterruptedException e) {
             return new TranslateResponse();
         }
     }

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { FlashcardSetGroupedByDate } from "../entities/FlashcardSetGroupedByDate";
-import FlashcardsSet from "../entities/FlashcardsSet";
 import { CardWithPosition } from "../components/game/GameEntity";
 
 export interface CreateRoomResponse {
@@ -11,7 +10,7 @@ secondPlayerId:string;
 }
 
 export const axiosInstance= axios.create({
-     baseURL: "http://localhost:8190/flash-learn/game",
+     baseURL: import.meta.env.VITE_API_BASE_URL+'/game',
   });
 
   class ApiGameClient{

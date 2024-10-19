@@ -1,9 +1,9 @@
 import FlashcardsSet from "./FlashcardsSet";
-import QuizSet from "./QuizSet";
+import Quiz from "./Quiz";
 
 export interface SharedSet {
     flashcardsSet:boolean;
     owner:string;
     flashcardsSetDTO:FlashcardsSet;
-    quizSetDTO:QuizSet;
+    quizSetDTO:Quiz;
 }

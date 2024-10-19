@@ -1,9 +1,7 @@
-import { Icon,Button,Text, Center, useMediaQuery, Spinner, Stack } from '@chakra-ui/react'
-import { FiUpload } from 'react-icons/fi'
+import { Center } from '@chakra-ui/react'
 import QuizItemBuilderComponent from './QuizItemBuilderComponent';
 import useCreatorStore from '../../../creatorStore';
-import { useEffect, useState } from 'react';
-import PdfDropBox from './PdfDropBox';
+import { useState } from 'react';
 import PdfUpload from './PdfUpload';
 import ProcessingSpinner from '../ProcessingSpinner';
 

@@ -18,7 +18,7 @@ const FlashcardsResult = ({accuratePercent,positive,negative,continueLearning,se
     <Flex height='100vh' color='gray.600' flexDirection='column'  padding='30px 0px' width='100vw' bg='gray.100'>
     <Icon position='absolute'  top='25px' left='25px'  boxSize={5} as={CloseIcon} cursor='pointer' onClick={handleExit}/>
     <Text textAlign='center' fontSize={{base:'xl',xl:'2xl'}} fontWeight='500'>{`${positive+negative}/${positive+negative}`}</Text>
-    <hr style={{width:'100%',marginTop:'15px',borderBottom:'2px solid var(--chakra-colors-gray-300)'}}/>
+    <hr style={{width:'100%',marginTop:'15px',border:'2px solid var(--chakra-colors-gray-300)'}}/>
     <HStack justifyContent='space-around' mt='100px' mb='100px'>
     <Center boxSize='100px' borderRadius='50%' border={`5px solid ${accuratePercent>50?'green':'orange'}`} fontSize='2xl'>
     {accuratePercent}%

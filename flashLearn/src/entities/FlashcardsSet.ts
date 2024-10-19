@@ -1,5 +1,4 @@
 import { Flashcard } from "./Flashcard";
-import { FlashcardBuilder } from "./FlashcardBuilder";
 
 export default interface FlashcardsSet{
     id:number;

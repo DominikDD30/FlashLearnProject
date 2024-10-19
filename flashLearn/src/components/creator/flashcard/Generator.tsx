@@ -1,10 +1,8 @@
-import { Flex, Textarea,Text, Button, Icon, HStack, Stack, RadioGroup, Radio, Input } from '@chakra-ui/react'
+import { Flex, Textarea,Text, Button, Icon, HStack, Stack, RadioGroup, Radio } from '@chakra-ui/react'
 import React, { ChangeEvent, useRef, useState } from 'react'
 import { MdOutlineUploadFile } from "react-icons/md";
 import ApiClient from '../../../services/ApiClient';
-import { set } from 'react-hook-form';
 import ProcessingSpinner from '../ProcessingSpinner';
-import { FlashcardBuilder } from '../../../entities/FlashcardBuilder';
 import useCreatorStore from '../../../creatorStore';
 
 
@@ -69,7 +67,7 @@ const Generator = () => {
           style={{ display: "none" }} />
 
           <Flex flexDirection='column'>
-              <Text mb={2}>paste your date below or import or import it from your image</Text>
+              <Text mb={2}>paste your date below or import it from your image</Text>
               <Textarea value={inputText} onChange={handleInputChange}  border='2px solid gold' width='100%' height='300px'
                   _focus={{ border: '2px solid gold', boxShadow: 'none' }} _hover={{ border: '2px solid gold' }}>
               </Textarea>

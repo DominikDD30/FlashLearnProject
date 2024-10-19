@@ -2,3 +2,7 @@ textarea{
     outline: none !important;
 }
 
+html{
+    background-color: var(--chakra-colors-gray-100)
+}
+

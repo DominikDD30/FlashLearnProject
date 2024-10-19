@@ -1,8 +1,7 @@
 import { Button ,Text,Icon} from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { FiUpload } from "react-icons/fi";
 import ApiClient from "../../../services/ApiClient";
-import { QuizItemBuilder } from "../../../entities/QuizItemBuilder";
 import useCreatorStore from "../../../creatorStore";
 
 interface Props{
@@ -13,15 +12,12 @@ interface Props{
 const apiClient=new ApiClient("/generate");
 const PdfUpload = ({startLoading,stopLoading}:Props) => {
   const creatorStore=useCreatorStore();
-    const [selectedPdf, setSelectedPdf] = useState<File>();
 const fileInputRef = useRef<HTMLInputElement>(null);
 
 const handlePdfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    // setSelectedPdf(file);
     startLoading();
     apiClient.generateQuizzes(file!)
-    // .then(res=>console.log(res))
     .then(res=>creatorStore.setQuizItems(res))
     .catch(err=>console.log(err))
     .finally(()=>stopLoading());

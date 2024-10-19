@@ -3,7 +3,6 @@ import useFlashcardSets from '../hooks/useFlashcardSets'
 import useUserStore from '../userStore'
 import FlashcardSetComponent from '../components/FlashcardSetComponent'
 import { useEffect } from 'react'
-import { createStore } from 'zustand'
 import useCreatorStore from '../creatorStore'
 
 const Flashcards = () => {
@@ -22,21 +21,21 @@ const Flashcards = () => {
 
 
   return (
-    <Stack spacing={4} minHeight='100vh'  mr='auto' ml='auto' width={isLargerThan1200?'40%':'100%'} padding='15px' color='gray.700'>
-      {today?.setsList?.length > 0 &&<>
+    <Stack spacing={4} minHeight={{base:'100vh',lg:'calc(100vh - 70px)'}}  mr='auto' ml='auto' width={isLargerThan1200?'40%':'100%'} padding='15px' color='gray.700'>
+      {today?.setsList?.length! > 0 &&<>
       <Text transform='translateX(-5px)' fontSize='lg' fontWeight='500'>Today</Text>
        {today?.setsList?.map(set=><FlashcardSetComponent  set={set} owner={userStore.email!}/>)}
        </>}
-      {thisWeek?.setsList?.length >0  &&<>
+      {thisWeek?.setsList?.length! >0  &&<>
       <Text transform='translateX(-5px)' fontSize='lg' fontWeight='500'>This week</Text>
        {thisWeek?.setsList?.map(set=><FlashcardSetComponent set={set} owner={userStore.email!}/>)}
        </>}
-      {pastWeek?.setsList?.length >0 &&<>
+      {pastWeek?.setsList?.length! >0 &&<>
       <Text transform='translateX(-5px)' fontSize='lg' fontWeight='500'>Past Week</Text>
        {pastWeek?.setsList?.map(set=><FlashcardSetComponent set={set} owner={userStore.email!}/>)}
        </>}
 
-      {rest?.length > 0 && (
+      {rest?.length! > 0 && (
     <>
     {rest?.map((setListGrouped, index) => (
       <Stack spacing={4} key={index}>

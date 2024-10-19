@@ -10,13 +10,14 @@ public class PexelApiClientImpl{
 
     private final WebClient pexelWebClient;
 
-    public PexelPhotosResponse findImageForflashcard(String flashcard) {
+    public PexelPhotosResponse findImageForflashcard(String flashcard, String language) {
         try {
             return pexelWebClient.get()
                     .uri(uriBuilder -> uriBuilder
                             .path("/search")
                             .queryParam("per_page",1)
                             .queryParam("query",flashcard)
+                            .queryParam("locale",language)
                             .build())
                     .retrieve()
                     .bodyToMono(PexelPhotosResponse.class)

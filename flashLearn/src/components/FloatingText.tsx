@@ -1,5 +1,5 @@
 import { Box,Text } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Props{
     toggle:number;
@@ -14,7 +14,6 @@ const FloatingText = ({toggle}:Props) => {
     
   return (
     <Box position='relative'  zIndex={1} width='190px' >
-    {/* <Box position='relative' mb={animate==-1?'20px':'20px'} zIndex={1} width='190px' > */}
     <label style={{position:'absolute',top:'25px', left:'0px',pointerEvents:'none',
      fontSize:'19px',color:`${animate==1?'var(--chakra-colors-blue-500)':'gray'}`}}>
        <Text as='span' transform={animate==1?'translateY(-20px)':'none'} display='inline-block'  minWidth='5px' transition='0.3s 0s cubic-bezier(0.68,-0.55,0.265,1.55)'>Q</Text> 

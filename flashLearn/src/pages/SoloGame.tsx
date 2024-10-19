@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import FlashcardsSet from '../entities/FlashcardsSet'
+import { useEffect, useState } from 'react'
 import { Center, Flex, HStack, SimpleGrid, Stack,Text,Image, useMediaQuery, Button} from '@chakra-ui/react';
 import FlipCardAnimationWrapper from '../components/game/FlipCardAnimationWrapper';
 import { CardWithPosition } from '../components/game/GameEntity';
@@ -8,6 +7,8 @@ import ApiGameClient from '../services/ApiGameClient';
 import smallWenus from '../assets/wenus_small.jpg'
 import bigWenus from '../assets/wenus.jpg'
 import { useNavigate } from 'react-router-dom';
+import DefaultCards from '../components/game/defaultCards';
+import { createCardsSet } from '../services/utils';
 
 const gameApiClient=new ApiGameClient();
 const SoloGame = () => {
@@ -28,7 +29,13 @@ const SoloGame = () => {
     const [isLargerThan1000] = useMediaQuery('(min-width: 1000px)');
 
     useEffect(() => {
+      if(setId!=0){
       gameApiClient.createSoloGame(setId,dificulity).then(data=>setCards(data));
+      }else{
+        const randomIndex = Math.floor(Math.random() * 2); 
+        const initialCards = createCardsSet(dificulity,DefaultCards[randomIndex].cards.slice(0, dificulity));
+        setCards(initialCards.map((card)=>({...card,visible:true})));
+      }
     }, []);
 
     if(!cards||cards.length<1)return;
@@ -91,20 +98,20 @@ const SoloGame = () => {
     <Text fontSize='2xl' mb={2}>Finish</Text>
     <Button w='200px' margin='0 auto' h='50px' mt={2} onClick={handleExit}>Back</Button>
     </Stack>}
-     <Flex width='100vw' flexDirection='column' overflowY='hidden' height='100vh' bgImage={isLargerThan1000?bigWenus:smallWenus} bgPosition='center' bgSize='cover'  p='10px 0px 0px 0px'> 
+     <Flex width='100vw' flexDirection='column' overflowY='hidden' height='100vh' bgImage={isLargerThan1000?bigWenus:smallWenus} bgPosition='center' bgSize='cover'  p='5px 0px 10px 0px'> 
     <HStack width='100%' justifyContent='space-around'>
     <Text  textAlign='center' fontSize='2xl' >collected pairs {scored}</Text>
     <Text  textAlign='center' fontSize='2xl' color='skyblue' >miss moves {moves}</Text>
     </HStack>
-    <SimpleGrid p={{base:'10px 20px 30px 20px',lg:'10px 30px'}} alignItems='center' flexGrow={1}  
-      spacing={deckSize==12? '25px' : deckSize==20? '20px' : '17px'}
+    <SimpleGrid  p={{base:'10px 20px 20px 20px',lg:'10px 30px'}} alignItems='center'  flexGrow={1}  
+      spacing={deckSize==12? '20px' : deckSize==20? '15px' : '17px'}
       columns={deckSize==12? 4 : deckSize==20? 5 : 6}>
             {cards?.map((card,index)=><FlipCardAnimationWrapper key={index} isBlocked={false}
            flip={(card.position==firstItemFlipedPosition)||(card.position==secondItemFlipedPosition)}> 
-                 <Center  
+                 <Center 
                   height={isLargerThan1000?
                     (deckSize == 12 ? '160px' : deckSize == 20 ? '130px' : '120px')
-                  :(deckSize == 12 ? '80px' : deckSize == 20 ? '60px' : '60px')}  
+                  :(deckSize == 12 ? '70px' : deckSize == 20 ? '55px' : '50px')}  
                   transition='1s'
                   opacity={card.visible ? 1 : 0}
                    borderRadius={10} 

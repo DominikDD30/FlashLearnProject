@@ -11,4 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class FlashcardsReqestDTO {
     private List<String> flashcards;
+    private String language;
 }

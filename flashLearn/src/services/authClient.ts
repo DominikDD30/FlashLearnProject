@@ -1,11 +1,10 @@
 import axios from 'axios';
-import React from 'react'
 
    
       
       
       export const axiosInstance= axios.create({
-        baseURL: "http://localhost:8190/flash-learn",
+        baseURL: import.meta.env.VITE_API_BASE_URL,
       });
 
      export interface AuthResponse {

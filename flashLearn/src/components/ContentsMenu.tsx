@@ -1,6 +1,5 @@
-import { CloseIcon, MoonIcon, SettingsIcon } from '@chakra-ui/icons'
-import { Box, Center, Flex, Stack,Icon,Text, Button, useMediaQuery } from '@chakra-ui/react'
-import React from 'react'
+import { CloseIcon } from '@chakra-ui/icons'
+import { Center, Flex, Stack,Icon,Text, Button, useMediaQuery } from '@chakra-ui/react'
 import { FcFlashOn } from 'react-icons/fc';
 import { IoIosCreate } from "react-icons/io";
 import { BsCollection } from "react-icons/bs";
@@ -9,7 +8,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../userStore';
 import { TbCardsFilled } from "react-icons/tb";
-import useCreatorStore from '../creatorStore';
 
 interface Props{
     closeContents:()=>void;
@@ -43,8 +41,7 @@ const ContentsMenu = ({closeContents,show}:Props) => {
             closeContents();
         }
   return (
-    <Stack color='black' pt='80px' position='absolute' top={isLargerThan1200?'70px':'0'} transition={isLargerThan1200?'0.6s linear':'0.35s linear'} left={show?'0':'-100%'} zIndex={2} 
-    // <Stack color='black' pt='80px' position='absolute' top={isLargerThan800?'70px':'0'} transition='0.3s linear' left={show?'0':'-100%'} zIndex={2} 
+    <Stack spacing={{base:3,lg:5}} color='black' pt='80px' position='absolute' top={isLargerThan1200?'70px':'0'} transition={isLargerThan1200?'0.6s linear':'0.35s linear'} left={show?'0':'-100%'} zIndex={2} 
     minHeight={isLargerThan1200?'calc(100% - 70px)':'100%'} width={isLargerThan1200?'30%':'100%'} bg={isLargerThan1200?'whitesmoke':'white'}>
         <Center position='absolute' border='2px solid var(--chakra-colors-gray-300)' borderRadius='50%' 
         boxSize='40px' top='20px' right='20px' cursor='pointer' onClick={closeContents}>
@@ -59,8 +56,6 @@ const ContentsMenu = ({closeContents,show}:Props) => {
             <Text color='gray.600'>{userStore.email}</Text>
             </Stack>
          </Flex>
-        {wrapper(SettingsIcon,'Settings','gray.400')}
-        {wrapper(MoonIcon,'Dark mode','gray.600')}
         <Stack spacing={5} width='100%' flexGrow={1} padding='20px 20px'>
         <Button width='100%' variant='outlined' border='2px solid var(--chakra-colors-gray-300)'
         onClick={handleLogout}>

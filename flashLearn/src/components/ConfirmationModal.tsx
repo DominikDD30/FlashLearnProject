@@ -1,7 +1,4 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react'
-import React from 'react'
-import ApiClient from '../services/ApiClient';
-import useUserStore from '../userStore';
 
 interface Props{
     open:boolean;
@@ -11,7 +8,7 @@ interface Props{
 
 
 const ConfirmationModal = ({open,close,confirmed}:Props) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { onClose } = useDisclosure();
   return (
     <Modal isOpen={open} onClose={()=>{onClose(),close()}}  size='xs'>
     <ModalOverlay />
