@@ -13,7 +13,7 @@ login: testowy
 password: testowy
 
 ## IMPORTANT!
-. Multiplayer game via websockets stop working after deploy to web (most likely some firewall block connections) 
+. Backend server currently not deployed ,only memory games are available
 
 
 
