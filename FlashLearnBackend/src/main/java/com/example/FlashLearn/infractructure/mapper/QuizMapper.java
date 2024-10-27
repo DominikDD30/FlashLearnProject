@@ -1,30 +1,24 @@
 package com.example.FlashLearn.infractructure.mapper;
 
 import com.example.FlashLearn.dto.AnswerDTO;
-import com.example.FlashLearn.dto.FlashcardDTO;
-import com.example.FlashLearn.dto.QuizDTO;
+import com.example.FlashLearn.dto.QuestionDTO;
 import com.example.FlashLearn.infractructure.database.entity.AnswerEntity;
-import com.example.FlashLearn.infractructure.database.entity.FlashcardEntity;
-import com.example.FlashLearn.infractructure.database.entity.QuizEntity;
+import com.example.FlashLearn.infractructure.database.entity.QuestionEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
 public interface QuizMapper {
 
-    static QuizEntity mapToEntity(QuizDTO quizDTO){
-       return QuizEntity.builder()
-//               .quizId(quizDTO.getId())
-               .question(quizDTO.getQuestion())
-               .answers(quizDTO.getAnswers().stream().map(QuizMapper::mapToEntity).collect(Collectors.toList()))
+    static QuestionEntity mapToEntity(QuestionDTO questionDTO){
+       return QuestionEntity.builder()
+               .question(questionDTO.getQuestion())
+               .answers(questionDTO.getAnswers().stream().map(QuizMapper::mapToEntity).collect(Collectors.toList()))
                 .build();
     }
 
-    static QuizDTO mapFromEntity(QuizEntity quizEntity) {
-        return new QuizDTO(quizEntity.getQuizId(), quizEntity.getQuestion(), quizEntity.getAnswers().stream().map(QuizMapper::mapFromEntity).toList());
+    static QuestionDTO mapFromEntity(QuestionEntity questionEntity) {
+        return new QuestionDTO(questionEntity.getQuestionId(), questionEntity.getQuestion(), questionEntity.getAnswers().stream().map(QuizMapper::mapFromEntity).toList());
     }
 
     static AnswerDTO mapFromEntity(AnswerEntity answerEntity){
@@ -32,7 +26,6 @@ public interface QuizMapper {
     }
     static AnswerEntity mapToEntity(AnswerDTO answerDTO){
         return AnswerEntity.builder()
-//                .answerId(answerDTO.getId())
                 .value(answerDTO.getValue())
                 .isCorrect(answerDTO.getIsCorrect())
                 .build();

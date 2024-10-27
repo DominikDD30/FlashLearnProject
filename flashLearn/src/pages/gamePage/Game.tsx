@@ -1,16 +1,16 @@
 import { Box, Button, Center, Flex, SimpleGrid,Stack,Text,Image, useMediaQuery } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import smallWenus from '../assets/wenus_small.jpg'
-import bigWenus from '../assets/wenus.jpg'
-import FlipCardAnimationWrapper from '../components/game/FlipCardAnimationWrapper'
-import GameNav from '../components/game/GameNav'
+import smallWenus from '../../assets/wenus_small.jpg'
+import bigWenus from '../../assets/wenus.jpg'
+import FlipCardAnimationWrapper from '../../components/game/FlipCardAnimationWrapper'
+import GameNav from '../../components/game/GameNav'
 import { useNavigate, useParams } from 'react-router-dom'
-import useGameStore from '../gameStore'
-import { CardWithPosition } from '../components/game/GameEntity'
-import { createCardsSet } from '../services/utils'
-import socket from '../../socket';
-import ApiClient from '../services/ApiClient'
-import DefaultCards from '../components/game/defaultCards'
+import useGameStore from '../../gameStore'
+import { CardWithPosition } from '../../components/game/GameEntity'
+import { createCardsSet } from '../../services/utils'
+import socket from '../../../socket';
+import ApiClient from '../../services/ApiClient'
+import DefaultCards from '../../components/game/defaultCards'
 
 interface Player{
   socketId:string;
@@ -62,7 +62,7 @@ const Game = () => {
         socket.on('game_started', () => {
          setYourTurn(true);
          setShowQueueText(true);
-        setTimeout(()=>{setShowQueueText(false)},800);
+        setTimeout(()=>{setShowQueueText(false)},2000);
         });
 
         socket.on('changeTurn', (player:string) => {
@@ -76,7 +76,7 @@ const Game = () => {
          }
          if(!showFinalResult){
         setShowQueueText(true);
-        setTimeout(()=>{setShowQueueText(false)},800);
+        setTimeout(()=>{setShowQueueText(false)},2000);
          }
         });
 
@@ -93,11 +93,11 @@ const Game = () => {
           setSecondItemFlipedPosition(position);
           setTimeout(()=>{setIsFirstItemSelected(true);},300);
           setTimeout(()=>{setIsSecondItemSelected(true);},300);
-          setTimeout(()=>{setIsSecondItemSelected(false);setSecondItemFlipedPosition(-1);},1800);
+          setTimeout(()=>{setIsSecondItemSelected(false);setSecondItemFlipedPosition(-1);},1300);
           setTimeout(()=>{
             setIsFirstItemSelected(false);
             setFirstItemFlipedPosition(-1);
-          },2800);
+          },2300);
          });
 
          socket.on('update_score', (players:Player[],cards:CardWithPosition[]) => {
@@ -130,13 +130,10 @@ const Game = () => {
      socket.emit('kill_room',gameStore.roomName);
      navigate('/');
     }
-
-
     
     const handleFlip=(position:number,concept:string,visible:boolean)=>{
           if(position==firstItemFlipedPosition||position==secondItemFlipedPosition) return;
           if(!yourTurn || !visible){
-            console.log("nie mozna kliknac");
             return
           }
 
@@ -154,7 +151,7 @@ const Game = () => {
               );
               socket.emit('process_move',gameStore.roomName,gameStore.playerName,isPoint,updatedCards
               );
-             },2800);
+             },2300);
           }
         }
 

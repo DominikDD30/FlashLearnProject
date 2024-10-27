@@ -25,7 +25,7 @@ const ShareComponent = () => {
         if(set?.flashcardsSet){
              apiClient.createFlashcards(userState.userId!,set?.flashcardsSetDTO.setName,set?.flashcardsSetDTO.flashcards.map(flashcard=>({id:undefined,concept:flashcard.concept,definition:flashcard.definition})));
         }else{
-            apiClient.createQuiz(userState.userId!,set?.quizSetDTO.setName!,set?.quizSetDTO.questions!);
+            apiClient.createQuiz(userState.userId!,set?.quizSetDTO.setName!,set?.quizSetDTO.questionDTOS!);
         } 
         navigate('/');
     }
@@ -49,7 +49,7 @@ const ShareComponent = () => {
             <Flex mt={1}> 
                 <Box bg='gray.200' border='2px solid var(--chakra-colors-gray-300)' height='30px' p='0 10px' color='gray.600'
                   lineHeight='25px' borderRadius='10px'>
-                    {set.flashcardsSet?`${set.flashcardsSetDTO.flashcards.length}  cards`:`${set.quizSetDTO.questions.length}  questions`}
+                    {set.flashcardsSet?`${set.flashcardsSetDTO.flashcards.length}  cards`:`${set.quizSetDTO.questionDTOS.length}  questions`}
                 </Box>
             </Flex>
 

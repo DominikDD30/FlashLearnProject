@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Answear, QuestionBuilder } from '../../../entities/QuestionBuilder';
 import { Stack,Text,HStack, Textarea } from '@chakra-ui/react';
-import FloatingText from '../../FloatingText';
+import FloatingText from '../../utils/FloatingText';
 import useCreatorStore from '../../../creatorStore';
 import AnswearComponent from './AnswearComponent';
 

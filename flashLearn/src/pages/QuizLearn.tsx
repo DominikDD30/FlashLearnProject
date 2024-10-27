@@ -3,23 +3,22 @@ import useCreatorStore from '../creatorStore';
 import useUserStore from '../userStore';
 import useQuizList from '../hooks/useQuizList';
 import { Stack ,useMediaQuery} from '@chakra-ui/react';
-import QuizSetComponent from '../components/QuizSetComponent';
+import QuizComponent from '../components/QuizComponent';
 import Quiz from '../entities/Quiz';
 import QuizLearnComponent from '../components/learn/QuizLearnComponent';
 import ApiClient from '../services/ApiClient';
 
 
 const apiClient=new ApiClient('/quiz');
-const QuizList = () => {
-    const  [activeQuiz,setActiveQuiz]=React.useState<number|undefined>(undefined);
+const QuizLearn = () => {
+    const [playedQuiz,setPlayedQuiz]=React.useState<Quiz>();
     const createStore=useCreatorStore();
     const userStore=useUserStore();
     const sets=useQuizList(userStore.userId||-1);
-    const playedQuiz=sets.data?.find((set:Quiz)=>set.quizId==activeQuiz);
     const [isLargerThan1200] = useMediaQuery('(min-width: 1200px)');
     
     useEffect(()=>{
-      setActiveQuiz(undefined);
+      setPlayedQuiz(undefined);
     },[userStore.refetchTrigger]);
 
     useEffect(()=>{ 
@@ -28,23 +27,27 @@ const QuizList = () => {
   
     const handlePlayQuiz=(quizId:number)=>{
       apiClient.updateLastTimeUsed(quizId);
-      setActiveQuiz(quizId);
+      const newQuiz=sets.data?.find((set:Quiz)=>set.quizId==quizId);
+      if (newQuiz) {
+        const shuffledQuestions = newQuiz?.questionDTOS.sort(() => Math.random() - 0.5);
+          setPlayedQuiz({...newQuiz, questionDTOS: shuffledQuestions, quizId: newQuiz.quizId!});
+      }
     }
 
 
-    if(activeQuiz) return (
-     <QuizLearnComponent quizSet={playedQuiz!}/>
+    if(playedQuiz) return (
+     <QuizLearnComponent quiz={playedQuiz}/>
       );
     
   return (
     <>
      <Stack  spacing={4} minHeight='100vh'  mr='auto' ml='auto' width={isLargerThan1200?'40%':'100%'}  padding='15px'>
         {Array.isArray(sets.data)&&sets?.data?.map((set, index) => (
-          <QuizSetComponent key={index} quiz={set} owner={userStore.email || ''} handlePlayQuiz={(quizId)=>handlePlayQuiz(quizId)} />
+          <QuizComponent key={index} quiz={set} owner={userStore.email || ''} handlePlayQuiz={(quizId)=>handlePlayQuiz(quizId)} />
         ))}
        </Stack>
     </>
   )
 }
 
-export default QuizList
+export default QuizLearn

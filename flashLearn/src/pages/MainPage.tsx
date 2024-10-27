@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, UnorderedList, ListItem, Stack, useMediaQuery, HStack, Button } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, useMediaQuery, HStack, Button } from '@chakra-ui/react'
 import photo from '../assets/main-photo.jpg'
 import photoSmall from '../assets/main-photo-small.jpg'
 import { SiGamejolt } from "react-icons/si";
@@ -6,50 +6,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 
-const about=<Box mb={5}>
+const about=<Box>
 <Heading size="md">About</Heading>
-<UnorderedList>
-  <ListItem>Information about Flashlearn</ListItem>
-  <ListItem>Advertise on Flashlearn</ListItem>
-  <ListItem>Download the app</ListItem>
-</UnorderedList>
+<Text>This app is an interactive learning platform that allows users to create and study custom flashcards and quizzes.
+   With features like image-based flashcards, translation support, and automatic  generation from text and PDFs, it enhances 
+   the learning experience by making content creation quick and intuitive.
+    Users can personalize their study environment, share flashcard sets, and reinforce knowledge 
+    through engaging modes like flashcard review, memory games, and quiz-based practice, making it a versatile tool for effective, 
+    enjoyable study sessions.</Text>
 </Box>
-
-const forStudents=<Box>
-<Heading size="md">For Students</Heading>
-<UnorderedList>
-  <ListItem>Flashcards</ListItem>
-  <ListItem>Tests</ListItem>
-  <ListItem>Learn</ListItem>
-  <ListItem>Solutions</ListItem>
-  <ListItem>Spaced repetition</ListItem>
-  <ListItem>Flashlearn Premium</ListItem>
-</UnorderedList>
-</Box>
-
-const forTeachers=<Box mb={5}>
-<Heading size="md">For Teachers</Heading>
-<UnorderedList>
-  <ListItem>Live</ListItem>
-  <ListItem>Checkpoint</ListItem>
-  <ListItem>Blog</ListItem>
-  <ListItem>Flashlearn  for Teachers</ListItem>
-</UnorderedList>
-</Box>
-
-const resources=<Box>
-<Heading size="md">Resources</Heading>
-<UnorderedList>
-  <ListItem>Help Center</ListItem>
-  <ListItem>Sign Up</ListItem>
-  <ListItem>Community Guidelines</ListItem>
-  <ListItem>Privacy</ListItem>
-  <ListItem>Terms of Service</ListItem>
-  <ListItem>Advertising & Cookies Policy</ListItem>
-  <ListItem>Flashlearn for Schools</ListItem>
-</UnorderedList>
-</Box>
-
 
 
 const MainPage = () => {
@@ -100,32 +65,15 @@ const MainPage = () => {
         </Text>
        </Flex>
       
-    <Text width='80%'  textAlign='center' m={{base:'30px auto',lg:'100px auto'}} fontWeight={{base:'bolder',lg:'bold'}} 
+    <Text width='80%'  textAlign='center' m='30px auto' fontWeight={{base:'bolder',lg:'bold'}} 
     fontSize={{base:'2xl',lg:'3xl'}} color='gray.700'>
         90% students agree: Flashlearn is their secret weapon for better 
         grades. Join the ranks of successful learners today!</Text>
         <hr style={{width:'100%',borderBottom:'1px solid var(--chakra-colors-gray-200)'}}></hr>
         <Flex color='gray.700'  mt='10px' p={4} justifyContent="space-around">
-            {isLargerThan1200?
                 <HStack width='100%' justifyContent='space-around'>
                     {about}
-                    {forStudents}
-                    {forTeachers}
-                    {resources}
                 </HStack>
-                :
-                <>
-                <Stack>  
-                    {about}
-                    {forStudents}
-                </Stack>
-                <Stack>
-                    {forTeachers}
-                    {resources}
-                </Stack>
-                </>
-        }
-          
         </Flex>
     </Flex>
   )

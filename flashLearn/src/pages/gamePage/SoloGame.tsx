@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Center, Flex, HStack, SimpleGrid, Stack,Text,Image, useMediaQuery, Button} from '@chakra-ui/react';
-import FlipCardAnimationWrapper from '../components/game/FlipCardAnimationWrapper';
-import { CardWithPosition } from '../components/game/GameEntity';
-import useSoloGameStore from '../soloGameStore';
-import ApiGameClient from '../services/ApiGameClient';
-import smallWenus from '../assets/wenus_small.jpg'
-import bigWenus from '../assets/wenus.jpg'
+import FlipCardAnimationWrapper from '../../components/game/FlipCardAnimationWrapper';
+import { CardWithPosition } from '../../components/game/GameEntity';
+import useSoloGameStore from '../../soloGameStore';
+import ApiGameClient from '../../services/ApiGameClient';
+import smallWenus from '../../assets/wenus_small.jpg'
+import bigWenus from '../../assets/wenus.jpg'
 import { useNavigate } from 'react-router-dom';
-import DefaultCards from '../components/game/defaultCards';
-import { createCardsSet } from '../services/utils';
+import DefaultCards from '../../components/game/defaultCards';
+import { createCardsSet } from '../../services/utils';
 
 const gameApiClient=new ApiGameClient();
 const SoloGame = () => {

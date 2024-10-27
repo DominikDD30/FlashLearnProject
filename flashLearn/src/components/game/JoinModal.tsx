@@ -14,7 +14,6 @@ const JoinModal = ({open,close,roomName: roomName}:Props) => {
     const initialRef = React.useRef<HTMLInputElement>(null);
     const gameStore=useGameStore();
     const navigate=useNavigate();
-    // const joinCodeRef = React.useRef<HTMLInputElement>(null);
 
 
     useEffect(() => {
@@ -54,26 +53,20 @@ const JoinModal = ({open,close,roomName: roomName}:Props) => {
     <Modal size='md' onClose={()=>{onClose();close()}} isOpen={open}    initialFocusRef={initialRef}
          closeOnOverlayClick={true}>
         <ModalOverlay />
-        <ModalContent margin='auto auto' width='300px' height='200px'  pt='20px' borderRadius='10px' 
+      <ModalContent margin='auto auto' width='300px' height='200px'  pt='20px' borderRadius='10px' 
         border='1px solid gray' bg='gray.800'>
-        <ModalBody>
+       <ModalBody>
         <Stack> 
-        <ModalCloseButton _focus={{boxShadow:'none'}} />
+          <ModalCloseButton _focus={{boxShadow:'none'}} />
 
-        {/* <Text>Nick</Text> */}
-        <Input ref={initialRef} mb={3} mt={5} placeholder='Nick..'  onKeyDown={handleKeyPress}
-        _focus={{border:'1px solid var(--chakra-colors-gray-400)',boxShadow:'none'}}  border='1px solid gray'/>
+          <Input ref={initialRef} mb={3} mt={5} placeholder='Nick..'  onKeyDown={handleKeyPress}
+          _focus={{border:'1px solid var(--chakra-colors-gray-400)',boxShadow:'none'}}  border='1px solid gray'/>
 
-        {/* <Text>Join Code</Text> */}
-        {/* <HStack spacing={4}> */}
-        {/* <Input ref={joinCodeRef} placeholder='gh43e..'  onKeyDown={handleKeyPress}
-        _focus={{border:'1px solid var(--chakra-colors-gray-400)',boxShadow:'none'}}  border='1px solid gray'/> */}
-        <Button border='1px solid gray' width='100%' onClick={handleJoinGame}>join</Button>
-        {/* </HStack> */}
+          <Button border='1px solid gray' width='100%' onClick={handleJoinGame}>join</Button>
         </Stack>
-        </ModalBody>
-        </ModalContent>
-        </Modal>
+      </ModalBody>
+     </ModalContent>
+    </Modal>
   )
 }
 

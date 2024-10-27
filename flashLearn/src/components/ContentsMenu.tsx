@@ -1,5 +1,5 @@
 import { CloseIcon } from '@chakra-ui/icons'
-import { Center, Flex, Stack,Icon,Text, Button, useMediaQuery } from '@chakra-ui/react'
+import { Center, Flex, Stack,Icon,Text, Button } from '@chakra-ui/react'
 import { FcFlashOn } from 'react-icons/fc';
 import { IoIosCreate } from "react-icons/io";
 import { BsCollection } from "react-icons/bs";
@@ -14,7 +14,6 @@ interface Props{
     show:boolean;
 }
 const ContentsMenu = ({closeContents,show}:Props) => {
-    const [isLargerThan1200] = useMediaQuery('(min-width: 1200px)');
     const userStore=useUserStore();
     const navigate=useNavigate();
     
@@ -41,8 +40,8 @@ const ContentsMenu = ({closeContents,show}:Props) => {
             closeContents();
         }
   return (
-    <Stack spacing={{base:3,lg:5}} color='black' pt='80px' position='absolute' top={isLargerThan1200?'70px':'0'} transition={isLargerThan1200?'0.6s linear':'0.35s linear'} left={show?'0':'-100%'} zIndex={2} 
-    minHeight={isLargerThan1200?'calc(100% - 70px)':'100%'} width={isLargerThan1200?'30%':'100%'} bg={isLargerThan1200?'whitesmoke':'white'}>
+    <Stack spacing={3} color='black' pt='80px' position='absolute' top='0' transition='0.35s linear' 
+     left={show?'0':'-100%'} zIndex={2}  minHeight='100%' width='100%' bg='white'>
         <Center position='absolute' border='2px solid var(--chakra-colors-gray-300)' borderRadius='50%' 
         boxSize='40px' top='20px' right='20px' cursor='pointer' onClick={closeContents}>
             <CloseIcon color='gray.500'/>

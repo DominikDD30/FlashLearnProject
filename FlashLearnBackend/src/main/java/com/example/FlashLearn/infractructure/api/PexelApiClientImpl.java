@@ -10,7 +10,7 @@ public class PexelApiClientImpl{
 
     private final WebClient pexelWebClient;
 
-    public PexelPhotosResponse findImageForflashcard(String flashcard, String language) {
+    public PexelPhotosResponse findImageForflashcard(String flashcard,String language) {
         try {
             return pexelWebClient.get()
                     .uri(uriBuilder -> uriBuilder

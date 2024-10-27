@@ -1,14 +1,10 @@
-import { Flex, Textarea,Text, Button, Icon, HStack, Stack, RadioGroup, Radio } from '@chakra-ui/react'
+import { Flex, Textarea,Text, Button, Icon, HStack, Stack, RadioGroup, Radio, useToast, ToastId } from '@chakra-ui/react'
 import React, { ChangeEvent, useRef, useState } from 'react'
 import { MdOutlineUploadFile } from "react-icons/md";
 import ApiClient from '../../../services/ApiClient';
-import ProcessingSpinner from '../ProcessingSpinner';
+import ProcessingSpinner from '../../utils/ProcessingSpinner';
 import useCreatorStore from '../../../creatorStore';
 
-
-// interface Props{
-//     generatedData:(data:FlashcardBuilder[])=>void;
-// }
 
 const apiClient = new ApiClient("/generate");
 const Generator = () => {
@@ -18,15 +14,29 @@ const Generator = () => {
     const [showSpinner,setShowSpinner]=useState(false);
     const [conceptDefinitionSeparator, setConceptDefinitionSeparator] = useState<string>("not");
     const [flashcardSeparator, setFlashcardSeparator] = useState<string>("newLine");
+    const toast = useToast()
+    const toastIdRef = useRef<ToastId | undefined>();
     
 
     const generate = () => {
         setShowSpinner(true);
         apiClient.generateFlashcards(inputText,conceptDefinitionSeparator,flashcardSeparator)
         .then(res=>{console.log(res);creatorStore.setFlashcards(res)})
-        .catch(err=>console.log(err))
+        .catch(()=>showToast("automatic generation failed, please try input text manually"))
         .finally(()=>setShowSpinner(false));
     };
+
+    function showToast(message:string) {
+        toastIdRef.current = toast({
+          description: message,
+          status: 'warning',
+          duration: 2000,
+          position:'bottom',
+          containerStyle: {
+            marginBottom: '100px',
+          }
+         })
+      }
 
     const handleImportDataAndOcr = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -45,7 +55,7 @@ const Generator = () => {
         setInputText(event.target.value);
       };
 
-      const importButton= <Button width='140px' height='50px'  mt={3}
+    const importButton= <Button width='140px' height='50px'  mt={3}
       bg='gray.300' border='2px solid black' onClick={openFileInput}>
       <Text  color='black'>import</Text>
       <Icon as={MdOutlineUploadFile} color='black' boxSize={6} />
@@ -82,14 +92,6 @@ const Generator = () => {
                         <Radio border='2px solid gold' value='not'>None</Radio>
                         <Radio border='2px solid gold' value='space'>Space</Radio>
                         <Radio border='2px solid gold' value=','>Comma</Radio>
-                        {/* <HStack><Radio border='2px solid gold' value='3'></Radio>
-                        <Stack  transform='translateY(20px)'>
-                        <Input placeholder='\d' _placeholder={{color:'gray'}}   _focus={{boxShadow:'none',border:'none',borderBottom:'1px solid gray'}}
-                         _hover={{borderBottom:'1px solid gray'}} borderBottom='1px solid gray' width='100px' 
-                         onChange={(e)=>setFlashcardSeparator(e.target.value)}/>
-                        <Text>adjust</Text>
-                        </Stack>
-                        </HStack> */}
                     </Stack>
                 </RadioGroup>
               </Stack>
@@ -100,14 +102,6 @@ const Generator = () => {
                     <Stack direction='row'>
                         <Radio border='2px solid gold' value='newLine'>New line</Radio>
                         <Radio border='2px solid gold' value=';'>semicolon</Radio>
-                        {/* <HStack><Radio border='2px solid gold' value='3'></Radio>
-                        <Stack  transform='translateY(20px)'>
-                        <Input placeholder='\d' _placeholder={{color:'gray'}}   _focus={{boxShadow:'none',border:'none',borderBottom:'1px solid gray'}}
-                         _hover={{borderBottom:'1px solid gray'}} borderBottom='1px solid gray' width='100px' 
-                         onChange={(e)=>setFlashcardSeparator(e.target.value)}/>
-                        <Text>adjust</Text>
-                        </Stack>
-                        </HStack> */}
                     </Stack>
                 </RadioGroup>
               </Stack>

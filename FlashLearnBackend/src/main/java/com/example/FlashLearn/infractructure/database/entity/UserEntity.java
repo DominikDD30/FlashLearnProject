@@ -38,7 +38,7 @@ public class UserEntity implements UserDetails{
     private Set<FlashcardsSetEntity> flashcardsSets;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Set<QuizSetEntity> quizSets;
+    private Set<QuizEntity> quizSets;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

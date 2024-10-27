@@ -1,10 +1,10 @@
 package com.example.FlashLearn.service;
 
 import com.example.FlashLearn.dto.FlashcardsSetDTO;
-import com.example.FlashLearn.dto.QuizSetDTO;
+import com.example.FlashLearn.dto.QuizDTO;
 import com.example.FlashLearn.dto.SharedSetDTO;
 import com.example.FlashLearn.infractructure.database.entity.FlashcardsSetEntity;
-import com.example.FlashLearn.infractructure.database.entity.QuizSetEntity;
+import com.example.FlashLearn.infractructure.database.entity.QuizEntity;
 import com.example.FlashLearn.infractructure.mapper.FlashcardMapper;
 import com.example.FlashLearn.infractructure.mapper.QuizMapper;
 import lombok.AllArgsConstructor;
@@ -31,16 +31,16 @@ public class SharingService {
                 .build();
     }
 
-    public SharedSetDTO buildQuizSetDto(QuizSetEntity quizSet) {
+    public SharedSetDTO buildQuizSetDto(QuizEntity quizSet) {
         String ownerName = userService.findUserById(quizSet.getUser().getUserId()).getUsername();
         return SharedSetDTO.builder()
                 .isFlashcardsSet(false)
                 .owner(ownerName)
-                .quizSetDTO(
-                        QuizSetDTO.builder()
+                .quizDTO(
+                        QuizDTO.builder()
                                 .setName(quizSet.getName())
-                                .quizItems(quizSet.getQuizItems().stream().map(QuizMapper::mapFromEntity).toList())
-                                .questionsAmount(quizSet.getQuizItems().size())
+                                .questionDTOS(quizSet.getQuestions().stream().map(QuizMapper::mapFromEntity).toList())
+                                .questionsAmount(quizSet.getQuestions().size())
                                 .build()
                 )
                 .build();

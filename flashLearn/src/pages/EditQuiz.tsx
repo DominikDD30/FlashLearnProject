@@ -38,30 +38,27 @@ const EditQuiz = () => {
       const handleUpdate= ()=>{
         if(creatorStore.quizItems.length>2&&setName){
            apiClient.updateSet(parseInt(setId!),userStore.userId!,setName,quizItems).then(()=>{
-            navigate("/quiz-list");
+            navigate("/quiz-learn");
             creatorStore.reset();
            });
-        }
-      else{
-        //toast
         }
       }
 
     
   return (
     <Box mr='auto' ml='auto' width={isLargerThan1200?'80%':'100%'} >
-    <Input mt={5} ref={setNameRef} value={setName} onChange={handleSetNameChange} _focus={{boxShadow:'none',border:'none',borderBottom:'1px solid black'}} 
-    placeholder='title..' bg='white' _placeholder={{color:'black'}} color='black' size='lg' onBlur={changeSetName}/>
+      <Input mt={5} ref={setNameRef} value={setName} onChange={handleSetNameChange} _focus={{boxShadow:'none',border:'none',borderBottom:'1px solid black'}} 
+      placeholder='title..' bg='white' _placeholder={{color:'black'}} color='black' size='lg' onBlur={changeSetName}/>
 
-    <Center  position='fixed' bg='orange.400' zIndex={1} bottom='20px' right='5px' color='white'
-    boxSize='50px' borderRadius='50%' fontSize='35px' cursor='pointer' onClick={handleAddNew}>
-      +
-    </Center>
-    {quizItems.map(quiz=><QuizItemBuilderComponent quizItem={quiz}/>)}
-    <Button width='100%' height='40px' mt={10} mb={5} bg='gray.300' color='black' 
-    border='2px solid black'onClick={handleUpdate}>
-      update set
-    </Button>
+      <Center  position='fixed' bg='orange.400' zIndex={1} bottom='20px' right='5px' color='white'
+      boxSize='50px' borderRadius='50%' fontSize='35px' cursor='pointer' onClick={handleAddNew}>
+        +
+      </Center>
+      {quizItems.map(quiz=><QuizItemBuilderComponent quizItem={quiz}/>)}
+      <Button width='100%' height='40px' mt={10} mb={5} bg='gray.300' color='black' 
+      border='2px solid black'onClick={handleUpdate}>
+        update set
+      </Button>
     </Box>
   )
 }

@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import ApiClient from '../services/ApiClient';
-import { Center, Flex, HStack, Icon,Image,Stack,Text, useMediaQuery } from '@chakra-ui/react';
+import { Button, Center, Flex, HStack, Icon,Stack,Text, useMediaQuery } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
-import { TbTriangleFilled } from "react-icons/tb";
-import { AiOutlineSound } from "react-icons/ai";
-import FlipCardAnimationWrapper from '../components/game/FlipCardAnimationWrapper';
 import FlashcardsResult from '../components/learn/FlashcardsResult';
 import { Flashcard } from '../entities/Flashcard';
-import AudioPlayer from '../components/AudioPlayer';
+import Card from '../components/learn/Card';
 
 const apiClient = new ApiClient('/flashcards');
 const FlashcardLearn = () => {
@@ -20,20 +17,18 @@ const FlashcardLearn = () => {
     const [activeFlashcardIndex,setActiveFlashcardIndex]=useState<number>(0);
     const [positive,setPositive]=useState<number>(0);
     const [negative,setNegative]=useState<number>(0);
-    const [isAnimationBlocked,setAnimationBlocked]=useState(false);
     const [isRoundEnd,setIsRoundEnd]=useState(false);
     const [showDefinition,setShowDefinition]=useState(false);
     const [opacity,setOpacity]=useState(false);
-    const [runSound, setRunSound] = useState(false);
     const accuratePercent=Math.floor(positive/(positive+negative)*100);
     const [nextCards,setNextCards]=useState<Flashcard[]>([]);
     const activeFlashcard=flashcards[activeFlashcardIndex];
 
-
     useEffect(()=>{
       apiClient.getFlashcardSet(parseInt(setId!)).then(set1=>{
-        setFlashcards(set1.flashcards.sort((c1,c2)=>c1.id-c2.id));
-        setDefaultCards(set1.flashcards.sort((c1,c2)=>c1.id-c2.id));
+        const shuffledCards = set1.flashcards.sort(() => Math.random() - 0.5);
+        setFlashcards(shuffledCards);
+        setDefaultCards(shuffledCards);
       })
   },[]);
 
@@ -42,24 +37,12 @@ const FlashcardLearn = () => {
     return;
   }
 
-  const handleNegative=()=>{
-    setAnimationBlocked(true);
-    if(showDefinition)setShowDefinition(false);
-    setTimeout(()=>setAnimationBlocked(false),1100);
-    setNegative(negative+1);
-    setNextCards([...nextCards, flashcards[activeFlashcardIndex]]);
-    if(activeFlashcardIndex+1==flashcards.length){
-      setIsRoundEnd(true); 
-      return;
-    }
-    setActiveFlashcardIndex(activeFlashcardIndex+1);
-  }
+  const handleMove=(isPositive:boolean)=>{
+    if(showDefinition) setShowDefinition(false);
 
-  const handlePositive=()=>{
-    setAnimationBlocked(true);
-    if(showDefinition)setShowDefinition(false);
-    setTimeout(()=>setAnimationBlocked(false),1100);
-    setPositive(positive+1);
+    if(isPositive)setPositive(positive+1);
+    else setNegative(negative+1);
+
     if(activeFlashcardIndex+1==flashcards.length){
       setIsRoundEnd(true); 
       return;
@@ -68,12 +51,13 @@ const FlashcardLearn = () => {
   }
 
   const handleContinueLearning=()=>{
-    setFlashcards(nextCards);
+    const shuffledCards = [...nextCards].sort(() => Math.random() - 0.5);
+    setFlashcards(shuffledCards);
     reset();
   }
 
   const handleSetDefault=()=>{
-    setFlashcards(defaultCards);
+    setFlashcards(defaultCards.sort(() => Math.random() - 0.5));
     reset();
   }
 
@@ -98,11 +82,6 @@ const FlashcardLearn = () => {
     },300)
   }
 
-  const handlePlaySound=(event: { stopPropagation: () => void; })=>{
-    setRunSound(!runSound);
-    event.stopPropagation(); 
-  }
-  
   if(isRoundEnd){
   return <FlashcardsResult accuratePercent={accuratePercent} positive={positive} negative={negative} 
   continueLearning={handleContinueLearning} setDefault={handleSetDefault}/>;
@@ -111,40 +90,24 @@ const FlashcardLearn = () => {
   return (
 <Flex flexDirection='column'  alignItems='center'  p={`20px ${isLargerThan1200?'50px':'0px'}`} height='100vh' width='100%' bg='gray.100' color='gray.600'>
   <Icon position='absolute'  top='20px' left='25px' boxSize={5} as={CloseIcon} cursor='pointer' onClick={handleExit}/>
-  <Text textAlign='center' fontSize={{base:'xl',xl:'2xl'}} fontWeight='500'>{`${activeFlashcardIndex+1}/${flashcards.length}`}</Text>
+  <Text textAlign='center' fontSize={{base:'xl',xl:'2xl'}} fontWeight='500'>
+    {`${activeFlashcardIndex+1}/${flashcards.length}`}
+  </Text>
   <hr style={{width:'99vw',marginTop:'15px',border:'2px solid var(--chakra-colors-gray-300)'}}/>
 
   <Stack height='100%' justifyContent='space-between' pb='25px'>
     <HStack w='100%' p='0 20px' mt='20px' justifyContent='space-between' fontSize='2xl'>
-        <Center border='2px solid red' boxSize={{base:'40px',xl:'50px'}} borderRadius='40%'><Text color='red'>{negative}</Text></Center>
+        <Center border='2px solid orange' boxSize={{base:'40px',xl:'50px'}} borderRadius='40%'><Text color='orange'>{negative}</Text></Center>
         <Center border='2px solid green' boxSize={{base:'40px',xl:'50px'}}borderRadius='40%'><Text color='green'>{positive}</Text></Center>
     </HStack>
    
-    <FlipCardAnimationWrapper  flip={showDefinition} isBlocked={isAnimationBlocked}>
-      <Flex mt='30px' position='relative' flexDirection='column' ml='auto' mr='auto'  height='55vh'
-      width={isLargerThan1200?'30vw':'calc(100vw - 80px)'} overflow='hidden'
-       bg='gray.400'  borderRadius='10px' onClick={handleFlip}>
-
-        {!showDefinition &&<Icon as={AiOutlineSound} cursor='pointer' opacity={opacity?0:1} position='absolute' top='20px' left='5%' boxSize={{base:8,xl:10}}
-        onClick={handlePlaySound}/>}
-        <AudioPlayer run={runSound} newConcept={activeFlashcard.concept}/>
-
-        {showDefinition&&activeFlashcard.image&&
-        <Image w='100%' height='80%' src={activeFlashcard.image}   opacity={opacity?0:1} objectFit='cover'/>}
-
-        <Center w='100%' h={showDefinition?'20%':'100%'} >
-          <Text fontSize={{base:'27px',xl:'34px'}} opacity={opacity?0:1}   mb='20px'   w='100%'  textAlign='center' color='white' transform={showDefinition?'rotateY(180deg)':''}>
-            {showDefinition?`${activeFlashcard.definition}`:`${activeFlashcard.concept}`}
-          </Text>
-        </Center>     
-      </Flex>
-    </FlipCardAnimationWrapper>
+    <Card activeFlashcard={activeFlashcard} opacity={opacity}  
+    showDefinition={showDefinition} flipCard={handleFlip}/>
   
-   <HStack w='100%' mt='50px'  p='0 40px' justifyContent='space-between' fontSize='2xl'>
-      <Icon as={TbTriangleFilled} cursor='pointer' boxSize={{base:7,xl:9}} transform='rotate(270deg)' onClick={handleNegative}/>
-      <Icon as={TbTriangleFilled} cursor='pointer' boxSize={{base:7,xl:9}} transform='rotate(90deg)' onClick={handlePositive}/>
-   </HStack>
-   
+    <HStack w='100%' mt='30px'  pb='20px' justifyContent='space-between' fontSize='2xl'>
+        <Button w='150px' p='20px' border="3px solid orange" color='var(--chakra-colors-gray-700)' onClick={()=>handleMove(false)}>Still Learning</Button>
+        <Button w='150px' p='20px' border="3px solid green"  color='var(--chakra-colors-gray-700)'  onClick={()=>handleMove(true)}>Know this</Button>
+    </HStack>
   </Stack>
 </Flex>
   )

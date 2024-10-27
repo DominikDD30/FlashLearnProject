@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 import static com.example.FlashLearn.controller.DeeplController.DEEPL;
 
 @RestController
@@ -27,7 +25,7 @@ public class DeeplController {
         try {
             String translated = deeplService.translate(text, source, target);
             return TranslateResponse.builder().text(translated).build();
-        } catch (RuntimeException |DeepLException | InterruptedException e) {
+        } catch (DeepLException | InterruptedException e) {
             return new TranslateResponse();
         }
     }

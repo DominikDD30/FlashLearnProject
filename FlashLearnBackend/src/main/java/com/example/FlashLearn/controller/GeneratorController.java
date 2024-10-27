@@ -2,9 +2,8 @@ package com.example.FlashLearn.controller;
 
 import com.example.FlashLearn.dto.AnswerDTO;
 import com.example.FlashLearn.dto.FlashcardDTO;
-import com.example.FlashLearn.dto.QuizDTO;
+import com.example.FlashLearn.dto.QuestionDTO;
 import com.example.FlashLearn.service.generating.FlashcardsGeneratingService;
-import com.example.FlashLearn.service.generating.InputDataForGenerating;
 import com.example.FlashLearn.service.generating.OcrService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -41,14 +40,14 @@ public class GeneratorController {
     }
 
     @PostMapping("/quiz")
-    public List<QuizDTO> generateQuizzes(@RequestParam("file") MultipartFile file){
+    public List<QuestionDTO> generateQuizzes(@RequestParam("file") MultipartFile file){
         if (file.isEmpty()) {
             return List.of();
         }
         try {
             Map<String, List<AnswerDTO>> map = ocrService.ocrImageAndCreateQuizItems(file);
             AtomicInteger counter= new AtomicInteger(1);
-            return map.entrySet().stream().map(entry->new QuizDTO(counter.getAndIncrement(),entry.getKey(),entry.getValue())).toList();
+            return map.entrySet().stream().map(entry->new QuestionDTO(counter.getAndIncrement(),entry.getKey(),entry.getValue())).toList();
         } catch (IOException e) {
             return List.of();
         }

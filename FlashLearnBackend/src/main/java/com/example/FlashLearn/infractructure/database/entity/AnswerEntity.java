@@ -26,6 +26,6 @@ public class AnswerEntity {
     private Boolean isCorrect;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_id")
-    private QuizEntity quiz;
+    @JoinColumn(name = "question_id")
+    private QuestionEntity question;
 }

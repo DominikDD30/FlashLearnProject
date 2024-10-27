@@ -1,0 +1,47 @@
+server:
+  port: 8190
+  servlet:
+    context-path: /flash-learn
+
+
+
+api:
+  pexels:
+    url: https://api.pexels.com/v1
+    apikey: xOafQpdfGAhtqi1Rumbjx2V6El0XAuUpa8PaXFBqXZwIBuC1yB083g7G
+  elevenlabs:
+    url: https://api.elevenlabs.io/v1
+    apikey: 3428ecabf9cd78bc5a356d3f07dd31cc
+  deepl:
+    apikey: 3f803fe4-0345-404a-8d97-89c91f6724d4:fx
+
+
+spring:
+  application:
+    name: FlashLearn
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/flash_learn
+    username: postgres
+    password: postgres
+    hikari:
+      idle-timeout: 10000
+      connectionTimeout: 20000
+      minimumIdle: 10
+      maximumPoolSize: 20
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format-sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  security:
+    enabled: true
+#    enable-csrf: false

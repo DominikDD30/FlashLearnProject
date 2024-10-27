@@ -1,6 +1,10 @@
 api:
   pexel:
     url: http://localhost:9999
+  deepl:
+    apikey: asfsf
+  elevenlabs:
+    apikey: sagaeg
 
 
 spring:

@@ -3,7 +3,7 @@ package com.example.FlashLearn.infractructure.database.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -12,8 +12,8 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"quizId","question"})
-@ToString(of = {"quizId","question"})
+@EqualsAndHashCode(of = {"quizId","name"})
+@ToString(of = {"quizId","name","lastTimeUsed"})
 @Entity
 @Table(name = "quiz")
 public class QuizEntity {
@@ -23,13 +23,19 @@ public class QuizEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer quizId;
 
-    @Column(name = "question")
-    private String question;
+    @Column(name = "name")
+    private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz", cascade = CascadeType.REMOVE)
-    private List<AnswerEntity> answers;
+    @Column(name = "last_time_used")
+    private LocalDate lastTimeUsed;
+
+    @Column(name = "share_code")
+    private String shareCode;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_set_id")
-    private QuizSetEntity quizSet;
+    @JoinColumn(name = "owner_id")
+    private UserEntity user;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz", cascade = CascadeType.REMOVE)
+    private Set<QuestionEntity> questions;
 }

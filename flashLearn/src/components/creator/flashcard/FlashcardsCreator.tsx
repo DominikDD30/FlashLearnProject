@@ -4,7 +4,7 @@ import { IoMdImages } from 'react-icons/io'
 import { FaCogs } from "react-icons/fa";
 import {  useRef, useState } from 'react'
 import ApiClient from '../../../services/ApiClient';
-import ImageZoomModal from '../../ImageZoomModal';
+import ImageZoomModal from '../../utils/ImageZoomModal';
 import useCreatorStore from '../../../creatorStore';
 import Generator from './Generator';
 import LanguagePicker from './LanguagePicker';
@@ -83,9 +83,9 @@ const FlashcardsCreator = () => {
     
       function showToast() {
         toastIdRef.current = toast({
-          description: 'generating images currently supports: English, German, French, Italian, Polish, Spanish Please select one of them in the language picker',
+          description: 'Language is either not selected or wrong, generating images currently supports: English, German, French, Italian, Polish, Spanish Please select one of them in the language picker',
           status: 'warning',
-          duration: 4000,
+          duration: 6000,
           position:'bottom',
           containerStyle: {
             marginBottom: '100px',

@@ -55,6 +55,22 @@ export const axiosInstance= axios.create({
         return await this.getImagesForFlashcards(flashcards,language, n - 1);
       }
     };
+
+    getImagesForFlashcardsPredictLang = async (flashcards: string[], n: number): Promise<AxiosResponse<FlashcardBuilder[]>> => {
+      const token = localStorage.getItem('token');
+      try {
+        return await axiosInstance.post<FlashcardBuilder[]>(this.endpoint, { flashcards: flashcards }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }
+        });
+      } catch (err) {
+        if (n === 1) throw err;
+        return await this.getImagesForFlashcardsPredictLang(flashcards, n - 1);
+      }
+    };
+
     getSetsForUser=(userId:number)=>{
       const token=localStorage.getItem('token');
       return axiosInstance.get<FlashcardSetGroupedByDate[]>(this.endpoint+`/user/${userId}`,{
@@ -167,10 +183,10 @@ export const axiosInstance= axios.create({
       )
     }
 
-    updateSet=(setId:number,ownerId:number,setName:string,quizItems:QuestionBuilder[])=>{
+    updateSet=(setId:number,ownerId:number,setName:string,questions:QuestionBuilder[])=>{
       const token=localStorage.getItem('token');
       return axiosInstance.put(this.endpoint+`/${setId}`,{
-        setName:setName,ownerId:ownerId,quizItems:quizItems},
+        setName:setName,ownerId:ownerId,questionDTOS:questions},
         {
         headers: {
           Authorization: `Bearer ${token}`, 

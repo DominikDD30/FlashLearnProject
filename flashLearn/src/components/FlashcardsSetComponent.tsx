@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { DeleteIcon, EditIcon, HamburgerIcon, LinkIcon } from '@chakra-ui/icons';
 import { FaGamepad } from "react-icons/fa";
 import { TbCards } from "react-icons/tb";
-import ConfirmationModal from './ConfirmationModal';
+import ConfirmationModal from './utils/ConfirmationModal';
 import ApiClient from '../services/ApiClient';
 import useUserStore from '../userStore';
 
@@ -15,7 +15,7 @@ interface Props{
     owner:string;
 }
 const apiClient=new ApiClient("/flashcards");
-const FlashcardSetComponent = ({set,owner}:Props) => {
+const FlashcardsSetComponent = ({set,owner}:Props) => {
   const [showMenu, setShowMenu] = React.useState(false);
   const [showConfirmation,setShowConfirmation]=React.useState(false);
   const [showCopiedAlert,setShowCopiedAlert]=React.useState(false);
@@ -73,4 +73,4 @@ const FlashcardSetComponent = ({set,owner}:Props) => {
   )
 }
 
-export default FlashcardSetComponent
+export default FlashcardsSetComponent

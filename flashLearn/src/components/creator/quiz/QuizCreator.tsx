@@ -3,7 +3,7 @@ import QuizItemBuilderComponent from './QuizItemBuilderComponent';
 import useCreatorStore from '../../../creatorStore';
 import { useState } from 'react';
 import PdfUpload from './PdfUpload';
-import ProcessingSpinner from '../ProcessingSpinner';
+import ProcessingSpinner from '../../utils/ProcessingSpinner';
 
 const QuizCreator = () => {
   const creatorStore=useCreatorStore();

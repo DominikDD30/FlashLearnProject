@@ -1,16 +1,19 @@
 package com.example.FlashLearn.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Data
+@With
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuizDTO {
-    private Integer id;
-    private String question;
-    private List<AnswerDTO> answers;
+    private int quizId;
+    private int ownerId;
+    private String setName;
+    private String shareCode;
+    private List<QuestionDTO> questionDTOS;
+    private Integer questionsAmount;
 }

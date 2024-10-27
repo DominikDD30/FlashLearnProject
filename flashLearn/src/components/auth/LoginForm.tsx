@@ -5,8 +5,6 @@ import { useState } from 'react';
 import useUserStore from '../../userStore';
 import { FieldValues, useForm } from 'react-hook-form';
 import DividerTemplate from './DividerTemplate';
-import LoginWithGoogle from './LoginWithGoogle';
-import LoginWithFacebook from './LoginWithFacebook';
 import useAuth from '../../hooks/useAuth';
 
 
@@ -83,10 +81,11 @@ const LoginForm = () => {
         <Text cursor='pointer' position='absolute'  top='0' right='0'>Forget Your Password?</Text>
         </Flex>
 
+         
         <DividerTemplate>or</DividerTemplate>
         <Stack mt={5} mb={3} >
-        <LoginWithGoogle/>
-        <LoginWithFacebook/>
+          {/* Not implemented yet */}
+        {/* <LoginWithGoogle/> */}
         </Stack>
         <Link to='/register'><Text textDecoration="underline" fontSize='lg'>Create an Account</Text></Link>
     </form>

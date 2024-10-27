@@ -20,16 +20,15 @@ public class QuizController {
 
     public static final String QUIZ="/quiz";
     private QuizService quizService;
-    private OcrService ocrService;
 
     @PostMapping
-    public void saveSet(@RequestBody QuizSetDTO quiz){
+    public void saveSet(@RequestBody QuizDTO quiz){
          quizService.saveSet(quiz);
     }
 
     @PutMapping("/{setId}")
     @Transactional
-    public void updateSet(@PathVariable Integer setId,@RequestBody QuizSetDTO updatedSet){
+    public void updateSet(@PathVariable Integer setId,@RequestBody QuizDTO updatedSet){
         quizService.deleteSet(setId);
         quizService.saveSet(updatedSet);
     }
@@ -39,15 +38,15 @@ public class QuizController {
         quizService.deleteSet(setId);
     }
     @GetMapping("/user/{userId}")
-    public List<QuizSetDTO> getSetsForUser(@PathVariable Integer userId){
+    public List<QuizDTO> getSetsForUser(@PathVariable Integer userId){
         return quizService.getSetsForUser(userId).stream()
-                .map(quizSetEntity-> new QuizSetDTO(
-                        quizSetEntity.getQuizSetId(),
+                .map(quizSetEntity-> new QuizDTO(
+                        quizSetEntity.getQuizId(),
                         0,
                         quizSetEntity.getName(),
                         quizSetEntity.getShareCode(),
-                        quizSetEntity.getQuizItems().stream().map(QuizMapper::mapFromEntity).toList(),
-                        quizSetEntity.getQuizItems().size()))
+                        quizSetEntity.getQuestions().stream().map(QuizMapper::mapFromEntity).toList(),
+                        quizSetEntity.getQuestions().size()))
                 .toList();
     }
 

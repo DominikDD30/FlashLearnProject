@@ -33,11 +33,11 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5174","http://127.0.0.1:5174","http://localhost:5180","http://127.0.0.1:5180"));
-//        configuration.setAllowedOrigins(List.of("*"));
+//        configuration.setAllowedOrigins(List.of("https://flashlearnproject.netlify.app","http://localhost:5174","http://127.0.0.1:5174","http://localhost:5180","http://127.0.0.1:5180"));
+        configuration.setAllowedOrigins(List.of("*"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
+//        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

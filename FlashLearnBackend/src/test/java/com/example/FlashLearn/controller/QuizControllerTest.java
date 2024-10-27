@@ -1,6 +1,6 @@
 package com.example.FlashLearn.controller;
 
-import com.example.FlashLearn.dto.QuizSetDTO;
+import com.example.FlashLearn.dto.QuizDTO;
 import com.example.FlashLearn.fixtures.EntityFixtures;
 import com.example.FlashLearn.fixtures.FixturesDTO;
 import com.example.FlashLearn.service.QuizService;
@@ -24,20 +24,20 @@ class QuizControllerTest {
     private QuizService quizService;
 
     @Test
-    void thatGetSetsForUserWorkCorrectly() {
+    void thatGetQuizForUserWorkCorrectly() {
         //given
         int userId=1;
         when(quizService.getSetsForUser(userId))
-                .thenReturn(List.of(EntityFixtures.someQuizSetEntity1(),EntityFixtures.someQuizSetEntity2()));
+                .thenReturn(List.of(EntityFixtures.someQuizEntity1(),EntityFixtures.someQuizEntity2()));
 
         //when
-        List<QuizSetDTO> result = quizController.getSetsForUser(userId);
+        List<QuizDTO> result = quizController.getSetsForUser(userId);
         //then
         assertThat(result)
-                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("quizItems")
+                .usingRecursiveFieldByFieldElementComparatorIgnoringFields("questionDTOS")
                 .containsExactlyInAnyOrder(
-                        FixturesDTO.someQuizSetDto1(),
-                        FixturesDTO.someQuizSetDto2());
+                        FixturesDTO.someQuizDto1(),
+                        FixturesDTO.someQuizDto2());
     }
 
 }

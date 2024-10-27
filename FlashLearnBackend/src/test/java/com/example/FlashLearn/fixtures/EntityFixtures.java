@@ -12,38 +12,38 @@ public class EntityFixtures {
     public static String someUUID1(){
         return "7b3c9cc4-99fa-4f8b-b759-2107f0a94893";
     }
-    public  static QuizSetEntity someQuizSetEntity1(){
-        return QuizSetEntity.builder()
-                .quizSetId(1)
+    public  static QuizEntity someQuizEntity1(){
+        return QuizEntity.builder()
+                .quizId(1)
                 .name("facts")
                 .shareCode(someUUID1())
                 .lastTimeUsed(LocalDate.of(2024, Month.APRIL,10))
-                .quizItems(Set.of(someQuizEntity1(),someQuizEntity2()))
+                .questions(Set.of(someQuestionEntity1(), someQuestionEntity2()))
                 .build();
     }
 
-    public  static QuizSetEntity someQuizSetEntity2(){
-        return QuizSetEntity.builder()
-                .quizSetId(2)
+    public  static QuizEntity someQuizEntity2(){
+        return QuizEntity.builder()
+                .quizId(2)
                 .name("facts2")
                 .shareCode(someUUID1())
                 .lastTimeUsed(LocalDate.of(2024, Month.APRIL,3))
-                .quizItems(Set.of(someQuizEntity2()))
+                .questions(Set.of(someQuestionEntity2()))
                 .build();
     }
 
 
-    public static QuizEntity someQuizEntity1(){
-        return QuizEntity.builder()
-                .quizId(1)
+    public static QuestionEntity someQuestionEntity1(){
+        return QuestionEntity.builder()
+                .questionId(1)
                 .question("is sky blue")
                 .answers(List.of(someCorrectAnswer1(),someWrongAnswer1()))
                 .build();
     }
 
-    public static QuizEntity someQuizEntity2(){
-        return QuizEntity.builder()
-                .quizId(2)
+    public static QuestionEntity someQuestionEntity2(){
+        return QuestionEntity.builder()
+                .questionId(2)
                 .question("is water green")
                 .answers(List.of(someCorrectAnswer2(),someWrongAnswer2()))
                 .build();

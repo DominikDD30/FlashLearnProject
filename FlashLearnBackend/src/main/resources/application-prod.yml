@@ -3,25 +3,28 @@ server:
   servlet:
     context-path: /flash-learn
 
+
+
 api:
   pexels:
     url: https://api.pexels.com/v1
-    apikey: yourKey
+    apikey: ${PROD_PEXEL_KEY}
   elevenlabs:
     url: https://api.elevenlabs.io/v1
-    apikey: yourKey
+    apikey: ${PROD_ELEVENLAB_KEY}
   deepl:
-    apikey: yourKey
+    apikey: ${PROD_DEEPL_KEY}
+
 
 spring:
   application:
     name: FlashLearn
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-#    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/flash_learn
-    username: postgres
-    password: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${PROD_DP_HOST}:${PROD_DB_PORT}/${PROD_DB_NAME}
+    username: ${PROD_DB_USERNAME}
+    password: ${PROD_DB_PASSWORD}
     hikari:
       idle-timeout: 10000
       connectionTimeout: 20000
@@ -40,7 +43,5 @@ spring:
       filter:
         enabled: true
   security:
-    enabled: false
+    enabled: true
 #    enable-csrf: false
-
-

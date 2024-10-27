@@ -5,6 +5,6 @@ export default interface Quiz{
     ownerId:number;
     setName:string;
     shareCode:string;
-    questions:QuestionBuilder[];
+    questionDTOS:QuestionBuilder[];
     questionsAmount:number;
 }

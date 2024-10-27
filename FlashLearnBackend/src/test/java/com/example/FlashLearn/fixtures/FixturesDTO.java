@@ -1,13 +1,10 @@
 package com.example.FlashLearn.fixtures;
 
 import com.example.FlashLearn.dto.*;
-import com.example.FlashLearn.infractructure.database.entity.AnswerEntity;
-import com.example.FlashLearn.infractructure.database.entity.QuizSetEntity;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
-import java.util.Set;
 
 public class FixturesDTO {
 
@@ -75,36 +72,36 @@ public class FixturesDTO {
     }
 
 
-    public static QuizSetDTO someQuizSetDto1(){
-        return QuizSetDTO.builder()
-                .setId(1)
+    public static QuizDTO someQuizDto1(){
+        return QuizDTO.builder()
+                .quizId(1)
                 .shareCode(someUUID1())
                 .setName("facts")
-                .quizItems(List.of(someQuizDto1(),someQuizDto2()))
+                .questionDTOS(List.of(someQuestionDto1(), someQuestionDto2()))
                 .questionsAmount(2)
                 .build();
     }
 
-    public static QuizSetDTO someQuizSetDto2(){
-        return QuizSetDTO.builder()
-                .setId(2)
+    public static QuizDTO someQuizDto2(){
+        return QuizDTO.builder()
+                .quizId(2)
                 .setName("facts2")
                 .shareCode(someUUID1())
-                .quizItems(List.of(someQuizDto2()))
+                .questionDTOS(List.of(someQuestionDto2()))
                 .questionsAmount(1)
                 .build();
     }
 
-    public static QuizDTO someQuizDto1(){
-        return new QuizDTO(
+    public static QuestionDTO someQuestionDto1(){
+        return new QuestionDTO(
                 1,
                 "is sky blue",
                 List.of(someCorrectAnswer1(),someWrongAnswer1())
         );
     }
 
-    public static QuizDTO someQuizDto2(){
-        return new QuizDTO(
+    public static QuestionDTO someQuestionDto2(){
+        return new QuestionDTO(
                 2,
                 "is water green",
                 List.of(someCorrectAnswer2(),someWrongAnswer2())

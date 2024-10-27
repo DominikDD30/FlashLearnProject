@@ -38,8 +38,8 @@ public class OcrService {
     public String ocrFile(MultipartFile file) {
         try {
             Tesseract tesseract = new Tesseract();
-//            tesseract.setDatapath("/usr/share/tesseract/tessdata");
-             tesseract.setDatapath("C:/Program Files/Tesseract-OCR/tessdata");
+            tesseract.setDatapath("/usr/share/tesseract/tessdata");
+//             tesseract.setDatapath("Tesseract-OCR/tessdata");
 
             File imageFile = convertMultiPartToFile(file);
             String result = tesseract.doOCR(imageFile);

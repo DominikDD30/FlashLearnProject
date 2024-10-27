@@ -13,5 +13,5 @@ public class SharedSetDTO {
     private boolean isFlashcardsSet;
     private String owner;
     private FlashcardsSetDTO flashcardsSetDTO;
-    private QuizSetDTO quizSetDTO;
+    private QuizDTO quizDTO;
 }

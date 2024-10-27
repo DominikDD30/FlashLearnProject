@@ -4,9 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import useUserStore from '../../userStore';
 import { FieldValues, useForm } from 'react-hook-form';
-import DividerTemplate from './DividerTemplate';
-import LoginWithGoogle from './LoginWithGoogle';
-import LoginWithFacebook from './LoginWithFacebook';
 import useRegister from '../../hooks/useRegister';
 
 
@@ -115,11 +112,11 @@ const RegisterForm = () => {
         </Flex>
         </Stack>
 
-        <DividerTemplate>or</DividerTemplate>
-        <Stack mt={5} mb={3} >
-        <LoginWithGoogle/>
-        <LoginWithFacebook/>
-        </Stack>
+        {/* Not implemented yet */}
+        {/* <DividerTemplate>or</DividerTemplate> */}
+        {/* <Stack mt={5} mb={3} > */}
+        {/* <LoginWithGoogle/>  */}
+        {/* </Stack> */}
     </form>
     </Center>
     </Center>
