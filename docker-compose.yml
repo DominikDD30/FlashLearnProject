@@ -29,7 +29,7 @@ services:
       - spring-boot-postgres
 
   PostgreSQL:
-    image: postgres:15.0
+    image: postgres:17.0
     ports:
       - 5432:5432
     environment:
