@@ -9,7 +9,6 @@ import com.example.FlashLearn.infractructure.mapper.FlashcardMapper;
 import com.example.FlashLearn.infractructure.mapper.FlashcardSetMapper;
 import com.example.FlashLearn.service.FlashcardService;
 import lombok.AllArgsConstructor;
-import net.datafaker.Faker;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +30,7 @@ public class FlashcardController {
 
      public static final String FLASHCARDS = "/flashcards";
     private final FlashcardService flashcardService;
-    private final Faker faker =new Faker();
+
 
 
     @PostMapping
