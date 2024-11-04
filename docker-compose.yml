@@ -1,7 +1,7 @@
 version: '2.1'
 services:
   backend:
-    build: FlashLearnBackend
+    build: FBackend
     ports:
       - "8190:8190"
     environment:
@@ -11,11 +11,15 @@ services:
       - SPRING_DATASOURCE_PASSWORD=postgres
     networks:
       - spring-boot-postgres
-    depends_on:
-      PostgreSQL:
-        condition: service_healthy
+  service:
+    build: FGenerationService
+    container_name: generation_service
+    ports:
+      - "8000:8000"
+    networks:
+      - spring-boot-postgres
   frontend:
-    build: flashLearn
+    build: FFrontend
     container_name: frontend_c
     ports:
       - "5174:5174"
