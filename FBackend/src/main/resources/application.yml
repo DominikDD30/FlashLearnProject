@@ -16,8 +16,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/flash_learn
-#    url: jdbc:postgresql://PostgreSQL:5432/flash_learn
+    # url: jdbc:postgresql://localhost:5432/flash_learn
+   url: jdbc:postgresql://PostgreSQL:5432/flash_learn
     username: postgres
     password: postgres
     hikari:
